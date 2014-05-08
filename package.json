@@ -1,0 +1,24 @@
+{
+  "name": "silent",
+  "version": "0.0.1",
+  "description": "Be a silent, static blog",
+  "keywords": [
+    "silent",
+    "static",
+    "blog"
+  ],
+  "main": "index.js",
+  "bin": {
+    "silent": "bin/cli.js"
+  },
+  "dependencies": {
+    "fs-extra": "~0.8.1",
+    "minimist": "0.0.8"
+  },
+  "homepage": "https://github.com/fritx/silent",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:fritx/silent.git"
+  },
+  "license": "MIT"
+}
