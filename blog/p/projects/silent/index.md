@@ -4,6 +4,8 @@
 
 See live demo: [here](http://fritx.github.io/silent)
 
+Source code: [silent](https://github.com/fritx/silent)
+
 ## Features
 
 ### Easy: Writing in Markdown
