@@ -20,7 +20,7 @@ Everything is under one folder
 
 ### Lightweight: You Can't Imagine
 
-> 1 html, 1 css and 2 js, totally **5K** (excluding jquery & marked)
+> 1 html, 1 ico, 1 css and 1 js, totally **5K** (excluding jquery & marked)
 
 See what, here's a sample of the folders, and nothing else:
 
@@ -37,7 +37,19 @@ See what, here's a sample of the folders, and nothing else:
     - aboutme.md
     - avatar.jpg
   - vendor/ (built-in stuffs)
+    - ...
+  - favicon.ico
   - index.html
+
+## Usage
+
+> Fast and easy
+
+1. Install from npm: `npm install -g silent`
+
+1. Generate a sample blog: `silent [path/to/blog]`
+
+1. Start mastering your pages around the `p/` folder
 
 ## Screenshots
 
@@ -53,7 +65,7 @@ See what, here's a sample of the folders, and nothing else:
 
 ~~*Current style is heavily learnt from [Purelog](https://github.com/conis/Purelog)*~~
 
-*Current style is heavily learnt from [hyde](https://github.com/poole/hyde) and Github*
+*Current style is heavily learnt from [hyde](https://github.com/mdo/hyde) and Github*
 
 *Favicon is copied from [Underscore](https://github.com/jashkenas/underscore)*
 
