@@ -6,7 +6,8 @@
 
   var pageBase = 'p/';
   var pageExt = 'md';
-  var mainPage = location.search.slice(1);
+  var mainPage = location.search.slice(1)
+    .replace(/&.*/, '') || 'projects/index';
   var mainTitle = '';
 
 
@@ -92,7 +93,7 @@
 
   function start() {
     load('#sidebar-page', 'sidebar');
-    load('#main-page', mainPage || 'projects/index', true);
+    load('#main-page', mainPage, true);
   }
 
   function isAbsolute(url) {
