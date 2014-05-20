@@ -63,6 +63,12 @@ See what, here's a sample of the folders, and nothing else:
 
 ## Change Log
 
+- v0.0.8 (05/20)
+  1. add optional disqus support
+  1. flag data-loaded for browser page-saving
+  1. use percentage for font-size instead of px
+  1. make sure target is a directory (cli)
+
 - v0.0.7 (05/12)
   1. try font "Microsoft YaHei" for chinese on windows
   1. add image holder for shared links (apps like wechat)
