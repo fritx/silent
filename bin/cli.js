@@ -22,7 +22,7 @@ var args = parseArgs(process.argv.slice(2), {
   var pkg = require('../package.json');
 
   if (args.version) {
-    console.log('silent v' + pkg.version);
+    console.log('v' + pkg.version);
     return;
   }
 
@@ -31,16 +31,22 @@ var args = parseArgs(process.argv.slice(2), {
     return;
   }
 
-  var tar = path.join(process.cwd(), args._[0]);
+  var tar = path.resolve(process.cwd(), args._[0] || '.');
 
-  if (fs.existsSync(tar) && !args.force) {
-    console.log('Target already exists. Force flag needed');
-    return;
+  if (fs.existsSync(tar)) {
+    if (!fs.statSync(tar).isDirectory()) {
+      console.log('Target should be a directory');
+      return;
+    }
+    if (!args.force) {
+      console.log('Target already exists. Force flag needed');
+      return;
+    }
   }
 
-  var src = __dirname + '/../blog';
+  var src = path.resolve(__dirname, '../blog');
 
   fs.copySync(src, tar);
-  console.log('Blog based up at: ' + path.resolve(tar));
+  console.log('Blog based up at: ' + tar);
 
 })();
