@@ -73,9 +73,16 @@ See what, here's a sample of the folders, and nothing else:
   1. try font "Microsoft YaHei" for chinese on windows
   1. add image holder for shared links (apps like wechat)
 
-## Note
+## People Using Silent
 
-~~*Current style is heavily learnt from [Purelog](https://github.com/conis/Purelog)*~~
+> Thank you!
+
+- [huang's Blog](http://huangruichang.github.io)
+- [Jason's Blog](http://jacsonlee.github.io/Blog)
+- [Jayden's Blog](http://iamjayden.github.io)
+- [Fritx's Blog](http://fritx.github.io/blog)
+
+## Note
 
 *Current style is heavily learnt from [hyde](https://github.com/mdo/hyde) and Github*
 
