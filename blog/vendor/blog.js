@@ -6,13 +6,15 @@
 
   var pageBase = 'p/';
   var pageExt = 'md';
-  var mainPage = location.search.slice(1)
-    .replace(new RegExp('&.*'), '') || 'projects/index';
+  var defaultPage = 'projects/index';
+  var mainPage = resolve(
+    location.search.slice(1)
+      .replace(new RegExp('&.*'), '') || defaultPage
+  );
   var mainTitle = '';
 
   /*// Optional disqus - see: https://disqus.com/
-  var onlineUrl = 'http://fritx.github.io/silent/' +
-    location.search.replace(new RegExp('&.*'), '');
+  var onlineUrl = 'http://fritx.github.io/silent/?' + mainPage;
   var disqusShortname = 'silent-blog';*/
 
 
@@ -51,9 +53,11 @@
               if (isAbsolute(old)) {
                 return old;
               }
-              return url.replace(
-                new RegExp('[^\\/]*$', 'g'), ''
-              ) + old;
+              return resolve(
+                url.replace(
+                  new RegExp('[^\\/]*$', 'g'), ''
+                ) + old
+              );
             });
           });
 
@@ -64,9 +68,11 @@
                 $el.attr('target', '_blank');
                 return old;
               }
-              var prefixed = url.replace(
-                new RegExp('^' + pageBase + '|[^\\/]*$', 'g'), ''
-              ) + old;
+              var prefixed = resolve(
+                url.replace(
+                  new RegExp('^' + pageBase + '|[^\\/]*$', 'g'), ''
+                ) + old
+              );
               var regExt = new RegExp('\\.' + pageExt + '$');
               if (!regExt.test(old)) {
                 if (!/(^\.|\/\.?|\.html?)$/.test(old)) {
@@ -75,6 +81,13 @@
                 return prefixed;
               }
               return '?' + prefixed.replace(regExt, '');
+            });
+          });
+
+          $el.find('p').each(function () {
+            var $el = $(this);
+            $el.html(function (x, old) {
+              return old.replace(/\n+/g, '');
             });
           });
 
@@ -107,6 +120,7 @@
   }
 
   function onNotFound() {
+    if (mainPage === defaultPage) return;
     if (!$('#main-page').attr('data-loaded')) location.href = '.';
   }
 
@@ -117,6 +131,22 @@
 
   function isAbsolute(url) {
     return !url.indexOf('//') || !!~url.indexOf('://');
+  }
+
+  function resolve(path) {
+    var segs = path.split('/');
+    var buf = [];
+    for (var i = 0; i < segs.length; i++) {
+      var seg = segs[i];
+      if (seg === '.') continue;
+      var last = buf[buf.length - 1];
+      if (seg === '..' && last && last !== '..') {
+        buf.pop();
+        continue;
+      }
+      buf.push(seg);
+    }
+    return buf.join('/');
   }
 
 
