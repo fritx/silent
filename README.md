@@ -61,18 +61,6 @@ See what, here's a sample of the folders, and nothing else:
 
 <img src="https://raw.githubusercontent.com/fritx/silent/master/blog/p/projects/silent/Screenshot_from_2014-05-08_01-50-42.png" width="360">
 
-## Change Log
-
-- v0.0.8 (05/20)
-  1. add optional disqus support
-  1. flag data-loaded for browser page-saving
-  1. use percentage for font-size instead of px
-  1. make sure target is a directory (cli)
-
-- v0.0.7 (05/12)
-  1. try font "Microsoft YaHei" for chinese on windows
-  1. add image holder for shared links (apps like wechat)
-
 ## People Using Silent
 
 > Thank you!
@@ -81,6 +69,23 @@ See what, here's a sample of the folders, and nothing else:
 - [Jason's Blog](http://jacsonlee.github.io/Blog)
 - [Jayden's Blog](http://iamjayden.github.io)
 - [Fritx's Blog](http://fritx.github.io/blog)
+
+## Change Log
+
+- v0.0.9 (05/22)
+  1. remove space caused by `\n` in `<p>`
+  1. add path resolve against `../` or `./`
+  1. not reload on default page not found
+
+- v0.0.8 (05/20)
+  1. add optional disqus support
+  1. flag data-loaded for local saved page
+  1. use percentage for `font-size` instead of px
+  1. make sure target is a directory (cli)
+
+- v0.0.7 (05/12)
+  1. try font "Microsoft YaHei" for chinese on windows
+  1. add image holder for shared links (apps like wechat)
 
 ## Note
 
