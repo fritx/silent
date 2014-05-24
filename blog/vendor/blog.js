@@ -146,7 +146,7 @@
       }
       buf.push(seg);
     }
-    return buf.join('/');
+    return buf.join('/') || '.';
   }
 
 
