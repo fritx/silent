@@ -4,45 +4,24 @@
 
 (function () {
 
-  var pageBase = 'p/';
-  var pageExt = 'md';
-  var defaultPage = 'projects/index';
-  var mainPage = resolve(
-    location.search.slice(1)
-      .replace(new RegExp('&.*'), '') || defaultPage
-  );
-  var mainTitle = '';
-
-  /*// Optional disqus - see: https://disqus.com/
-  var onlineUrl = 'http://fritx.github.io/silent/?' + mainPage;
-  var disqusShortname = 'silent-blog';*/
+  var pageBase;
+  var pageExt;
+  var defaultPage;
+  var mainPage;
+  var mainTitle;
+  var entryUrl;
+  var onlineUrl;
+  var shortName;
 
 
-  function config() {
-    marked.setOptions({
-      renderer: new marked.Renderer(),
-      gfm: true,
-      tables: true,
-      breaks: false,
-      pedantic: false,
-      sanitize: false,
-      smartLists: true,
-      smartypants: false
-    });
-  }
-
-  function render(data, options, callback) {
-    marked(data, options, callback);
-  }
-
-  function load(sel, page, isMain, options, callback) {
+  function load(sel, page, isMain, callback) {
     isMain = isMain || false;
     var url = pageBase + page + '.' + pageExt;
     $.ajax({
       url: url,
       error: onNotFound,
       success: function (data) {
-        render(data, options, function (err, html) {
+        render(data, function (err, html) {
           if (err && callback) return callback(err);
           var $el = $(sel);
           $el.attr('data-loaded', true).hide().html(html);
@@ -96,20 +75,7 @@
             $('title').text(function (x, old) {
               return mainTitle + ' - ' + old;
             });
-
-            /*// CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE
-            window.disqus_shortname = disqusShortname;
-            window.disqus_title = mainTitle;
-            window.disqus_identifier = mainPage;
-            window.disqus_url = onlineUrl;
-
-            // DON'T EDIT BELOW THIS LINE
-            (function () {
-              var dsq = document.createElement('script');
-              dsq.async = true;
-              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-              document.getElementsByTagName('body')[0].appendChild(dsq);
-            })();*/
+            comments();
           }
 
           $el.show();
@@ -122,11 +88,6 @@
   function onNotFound() {
     if (mainPage === defaultPage) return;
     if (!$('#main-page').attr('data-loaded')) location.href = '.';
-  }
-
-  function start() {
-    load('#sidebar-page', 'sidebar');
-    load('#main-page', mainPage, true);
   }
 
   function isAbsolute(url) {
@@ -149,8 +110,64 @@
     return buf.join('/') || '.';
   }
 
+  function disqus(name, title, id, url) {
+    window.disqus_shortname = name;
+    window.disqus_title = title;
+    window.disqus_identifier = id;
+    window.disqus_url = url;
+
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    document.getElementsByTagName('body')[0].appendChild(dsq);
+  }
 
   config();
   start();
+
+
+  function render(data, callback) {
+
+    //// Optional template renderer
+    marked(data, callback);
+  }
+
+  function comments() {
+
+    //// Optional comment system
+    //disqus(shortName, mainTitle, mainPage, onlineUrl);
+  }
+
+  function start() {
+    mainPage = resolve(
+      location.search.slice(1)
+        .replace(new RegExp('&.*'), '') || defaultPage
+    );
+    onlineUrl = entryUrl + '/?' + mainPage;
+
+    load('#sidebar-page', 'sidebar');
+    load('#main-page', mainPage, true);
+  }
+
+  function config() {
+    marked.setOptions({
+      renderer: new marked.Renderer(),
+      gfm: true,
+      tables: true,
+      breaks: false,
+      pedantic: false,
+      sanitize: false,
+      smartLists: true,
+      smartypants: false
+    });
+
+    //// For comment systems
+    //entryUrl = 'http://fritx.github.io/silent';
+    //shortName = 'silent-blog';
+
+    pageBase = 'p/';
+    pageExt = 'md';
+    defaultPage = 'projects/index';
+  }
 
 })();
