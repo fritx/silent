@@ -72,7 +72,12 @@ See what, here's a sample of the folders, and nothing else:
 
 ## Change Log
 
-- v0.0.9 (05/22)
+- v0.0.9-2 (05/24)
+  1. fix empty resolved href by `.`
+  1. optional `disqus()` and `comments()`
+  1. better access for `config()` and `start()`
+
+- v0.0.9-1 (05/22)
   1. remove space caused by `\n` in `<p>`
   1. add path resolve against `../` or `./`
   1. not reload on default page not found
