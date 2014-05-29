@@ -72,6 +72,11 @@ See what, here's a sample of the folders, and nothing else:
 
 ## Change Log
 
+- v0.0.9-3 (05/29)
+  1. add index.js for usage as local module
+  1. slashes vars in regex
+  1. support hash with local links
+
 - v0.0.9-2 (05/24)
   1. fix empty resolved href by `.`
   1. optional `disqus()` and `comments()`
