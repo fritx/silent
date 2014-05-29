@@ -1,12 +1,11 @@
-#! /usr/bin/env node
-
 /**
  * Created by fritx on 5/8/14.
  */
 
 var path = require('path');
-var fs = require('fs-extra');
+var fs = require('fs');
 var parseArgs = require('minimist');
+var silent = require('../');
 
 var args = parseArgs(process.argv.slice(2), {
   boolean: ['version', 'help', 'force'],
@@ -44,9 +43,7 @@ var args = parseArgs(process.argv.slice(2), {
     }
   }
 
-  var src = path.resolve(__dirname, '../blog');
-
-  fs.copySync(src, tar);
+  silent.setup(tar);
   console.log('Blog based up at: ' + tar);
 
 })();
