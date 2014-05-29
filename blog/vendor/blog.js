@@ -16,14 +16,14 @@
 
   function load(sel, page, isMain, callback) {
     isMain = isMain || false;
-    var url = pageBase + page + '.' + pageExt;
+    var url = pageBase + page + pageExt;
     var dir = url.replace(
       new RegExp('[^\\/]*$', 'g'), ''
     );
     $.ajax({
       url: url,
       error: onNotFound,
-      success: function(data) {
+      success: function (data) {
         render(data, function (err, html) {
           var $el = $(sel);
           $el.hide().html(html);
@@ -47,17 +47,22 @@
               }
               var prefixed = resolve(
                 dir.replace(
-                  new RegExp('^' + slashes(pageBase), 'g'), ''
+                  new RegExp('^' + slashes(pageBase)), ''
                 ) + old
               );
-              var regExt = new RegExp(slashes(pageExt) + '$');
-              if (!regExt.test(old)) {
-                if (!/(^\.|\/\.?|\.html?)$/.test(old)) {
+              var hashRegex = new RegExp('#.*');
+              var hash = (function (match) {
+                return match && match[0] || '';
+              })(old.match(hashRegex));
+              var dehashed = prefixed.replace(hashRegex, '');
+              var extRegex = new RegExp(slashes(pageExt) + '$');
+              if (!extRegex.test(dehashed)) {
+                if (!/(^\.|\/\.?|\.html?)$/.test(dehashed)) {
                   $el.attr('target', '_blank');
                 }
                 return prefixed;
               }
-              return '?' + prefixed.replace(regExt, '');
+              return '?' + dehashed.replace(extRegex, '') + hash;
             });
           });
 
