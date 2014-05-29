@@ -17,14 +17,16 @@
   function load(sel, page, isMain, callback) {
     isMain = isMain || false;
     var url = pageBase + page + '.' + pageExt;
+    var dir = url.replace(
+      new RegExp('[^\\/]*$', 'g'), ''
+    );
     $.ajax({
       url: url,
       error: onNotFound,
-      success: function (data) {
+      success: function(data) {
         render(data, function (err, html) {
-          if (err && callback) return callback(err);
           var $el = $(sel);
-          $el.attr('data-loaded', true).hide().html(html);
+          $el.hide().html(html);
 
           $el.find('[src]').each(function () {
             var $el = $(this);
@@ -32,11 +34,7 @@
               if (isAbsolute(old)) {
                 return old;
               }
-              return resolve(
-                url.replace(
-                  new RegExp('[^\\/]*$', 'g'), ''
-                ) + old
-              );
+              return resolve(dir + old);
             });
           });
 
@@ -48,11 +46,11 @@
                 return old;
               }
               var prefixed = resolve(
-                url.replace(
-                  new RegExp('^' + pageBase + '|[^\\/]*$', 'g'), ''
+                dir.replace(
+                  new RegExp('^' + slashes(pageBase), 'g'), ''
                 ) + old
               );
-              var regExt = new RegExp('\\.' + pageExt + '$');
+              var regExt = new RegExp(slashes(pageExt) + '$');
               if (!regExt.test(old)) {
                 if (!/(^\.|\/\.?|\.html?)$/.test(old)) {
                   $el.attr('target', '_blank');
@@ -78,7 +76,7 @@
             comments();
           }
 
-          $el.show();
+          $el.show().attr('data-loaded', true);
           if (callback) callback();
         });
       }
@@ -88,6 +86,10 @@
   function onNotFound() {
     if (mainPage === defaultPage) return;
     if (!$('#main-page').attr('data-loaded')) location.href = '.';
+  }
+
+  function slashes(str) {
+    return str.replace(/([.?*+^$!:\[\]\\(){}|-])/g, '\\$1');
   }
 
   function isAbsolute(url) {
@@ -165,8 +167,8 @@
     //entryUrl = 'http://fritx.github.io/silent';
     //shortName = 'silent-blog';
 
+    pageExt = '.md';
     pageBase = 'p/';
-    pageExt = 'md';
     defaultPage = 'projects/index';
   }
 
