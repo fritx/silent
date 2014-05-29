@@ -1,3 +1,7 @@
+/**
+ * Created by fritx on 5/29/14.
+ */
+
 var path = require('path');
 var fs = require('fs-extra');
 

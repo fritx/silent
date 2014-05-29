@@ -46,6 +46,7 @@ table {
 table th, table td {
   border: 1px solid #ddd;
   padding: 6px 13px;
+  min-width: 4em;
 }
 table tr {
   border-top: 1px solid #ccc;
