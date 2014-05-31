@@ -2,7 +2,7 @@
 
 > Be a silent, static blog
 
-See live demo: [here](http://fritx.github.io/silent)
+See live demo: <http://fritx.github.io/silent>
 
 ## Features
 
@@ -45,9 +45,9 @@ See what, here's a sample of the folders, and nothing else:
 
 > Fast and easy
 
-1. Install from npm: `npm install -g silent`
+1. Install from npm: `$ npm install -g silent`
 
-1. Generate a sample blog: `silent [path/to/blog]`
+1. Generate a sample blog: `$ silent [path/to/blog]`
 
 1. Start mastering your pages around the `p/` folder
 
@@ -72,30 +72,7 @@ See what, here's a sample of the folders, and nothing else:
 
 ## Change Log
 
-- v0.0.9-3 (05/29)
-  1. add index.js for usage as local module
-  1. slashes vars in regex
-  1. support hash with local links
-
-- v0.0.9-2 (05/24)
-  1. fix empty resolved href by `.`
-  1. optional `disqus()` and `comments()`
-  1. better access for `config()` and `start()`
-
-- v0.0.9-1 (05/22)
-  1. remove space caused by `\n` in `<p>`
-  1. add path resolve against `../` or `./`
-  1. not reload on default page not found
-
-- v0.0.8 (05/20)
-  1. add optional disqus support
-  1. flag data-loaded for local saved page
-  1. use percentage for `font-size` instead of px
-  1. make sure target is a directory (cli)
-
-- v0.0.7 (05/12)
-  1. try font "Microsoft YaHei" for chinese on windows
-  1. add image holder for shared links (apps like wechat)
+See [CHANGELOG.md](https://github.com/fritx/silent/blob/master/CHANGELOG.md)
 
 ## Note
 
