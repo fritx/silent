@@ -4,14 +4,11 @@
 
 (function () {
 
-  var pageBase;
-  var pageExt;
-  var defaultPage;
-  var mainPage;
-  var mainTitle;
-  var entryUrl;
-  var onlineUrl;
-  var shortName;
+  var sidebarSel, mainSel;
+  var pageExt, pageBase;
+  var sidebarPage, defaultPage;
+  var mainPage, mainTitle;
+  var entryUrl, onlineUrl, shortName;
 
 
   function load(sel, page, isMain, callback) {
@@ -74,7 +71,8 @@
           });
 
           if (isMain) {
-            mainTitle = $el.find('h1:first').text();
+            mainTitle = $el.find('h1, h2, h3, h4, h5, h6')
+              .first().text();
             $('title').text(function (x, old) {
               return mainTitle + ' - ' + old;
             });
@@ -86,6 +84,14 @@
         });
       }
     });
+  }
+
+  function loadSidebar(page) {
+    load(sidebarSel, page);
+  }
+
+  function loadMain(page) {
+    load(mainSel, page, true);
   }
 
   function onNotFound() {
@@ -152,8 +158,8 @@
     );
     onlineUrl = entryUrl + '/?' + mainPage;
 
-    load('#sidebar-page', 'sidebar');
-    load('#main-page', mainPage, true);
+    loadSidebar(sidebarPage);
+    loadMain(mainPage);
   }
 
   function config() {
@@ -172,8 +178,12 @@
     //entryUrl = 'http://fritx.github.io/silent';
     //shortName = 'silent-blog';
 
+    sidebarSel = '#sidebar-page';
+    mainSel = '#main-page';
+
     pageExt = '.md';
     pageBase = 'p/';
+    sidebarPage = 'sidebar';
     defaultPage = 'projects/index';
   }
 
