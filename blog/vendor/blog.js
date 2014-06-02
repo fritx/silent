@@ -4,6 +4,8 @@
 
 (function () {
 
+  'use strict';
+
   var sidebarSel, mainSel;
   var pageExt, pageBase;
   var sidebarPage, defaultPage;
@@ -11,7 +13,7 @@
   var entryUrl, onlineUrl, shortName;
 
 
-  function load(sel, page, isMain, callback) {
+  function load(sel, page, isMain) {
     isMain = isMain || false;
     var url = pageBase + page + pageExt;
     var dir = url.replace(
@@ -80,7 +82,6 @@
           }
 
           $el.show().attr('data-loaded', true);
-          if (callback) callback();
         });
       }
     });
@@ -131,7 +132,7 @@
 
     var dsq = document.createElement('script');
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + name + '.disqus.com/embed.js';
     document.getElementsByTagName('body')[0].appendChild(dsq);
   }
 

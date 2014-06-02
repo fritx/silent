@@ -1,6 +1,10 @@
+#!/usr/bin/env node
+
 /**
  * Created by fritx on 5/8/14.
  */
+
+'use strict';
 
 var path = require('path');
 var fs = require('fs');
