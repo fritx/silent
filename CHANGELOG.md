@@ -1,5 +1,10 @@
 ## Change Log
 
+- v0.0.9-5 (06/02)
+  1. fix /usr/bin/env bug
+  1. use strict and eol
+  1. include dependencies gulp/eslint/eol
+
 - v0.0.9-4 (05/31)
   1. set bg-color to white
   1. sans-serif instead for pre/code

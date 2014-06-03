@@ -1,6 +1,6 @@
 {
   "name": "silent",
-  "version": "0.0.9-4",
+  "version": "0.0.9-5",
   "description": "Be a silent, static blog",
   "keywords": [
     "silent",
@@ -14,6 +14,11 @@
   "dependencies": {
     "fs-extra": "~0.8.1",
     "minimist": "0.0.8"
+  },
+  "devDependencies": {
+    "gulp": "~3.7.0",
+    "gulp-eslint": "~0.1.7",
+    "gulp-eol": "0.0.1"
   },
   "homepage": "https://github.com/fritx/silent",
   "repository": {
