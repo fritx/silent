@@ -2,20 +2,20 @@
  * Created by fritx on 6/2/14.
  */
 
-'use strict';
+'use strict'
 
-var gulp = require('gulp');
-var eslint = require('gulp-eslint');
-var eol = require('gulp-eol');
+var gulp = require('gulp')
+var eslint = require('gulp-eslint')
+var eol = require('gulp-eol')
 
 gulp.task('eslint', function () {
   return gulp.src([
       'blog/vendor/blog.js',
       'bin/cli.js',
-      'index.js'
+      '*.js'
     ]).pipe(eslint())
-    .pipe(eslint.format());
-});
+    .pipe(eslint.format())
+})
 
 gulp.task('eol', function () {
   return gulp.src([
@@ -24,5 +24,5 @@ gulp.task('eol', function () {
       '!blog/vendor/**/*.min.{js,css}',
       '!node_modules/**'
     ]).pipe(eol('\n'))
-    .pipe(gulp.dest('.'));
-});
+    .pipe(gulp.dest('.'))
+})
