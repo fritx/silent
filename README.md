@@ -70,7 +70,7 @@ See what, here's a sample of the folders, and nothing else:
 - [Jayden's Blog](http://iamjayden.github.io)
 - [Fritx's Blog](http://fritx.github.io/blog)
 
-## Change Log
+## Changelog
 
 See [CHANGELOG.md](https://github.com/fritx/silent/blob/master/CHANGELOG.md)
 

@@ -1,5 +1,8 @@
 {
   "rules": {
+    "no-space-before-semi": false,
+    "no-extra-semi": false,
+    "semi": false,
     "quotes": "single",
     "camelcase": false,
     "curly": false,

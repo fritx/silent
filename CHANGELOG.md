@@ -1,4 +1,8 @@
-## Change Log
+## Changelog
+
+- v0.1.0 (06/18)
+  1. fix local link target
+  1. no-semicolon style
 
 - v0.0.9-5 (06/02)
   1. fix /usr/bin/env bug
