@@ -58,13 +58,13 @@ prj silent
 
 ## Screenshots
 
-<img src="p/projects/silent/Screenshot_from_2014-05-08_01-43-18.png" width="140">
+<img src="blog/p/projects/silent/Screenshot_from_2014-05-08_01-43-18.png" width="140">
 &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="p/projects/silent/Screenshot_from_2014-05-08_01-56-27.png" width="270">
+<img src="blog/p/projects/silent/Screenshot_from_2014-05-08_01-56-27.png" width="270">
 
-<img src="p/projects/silent/Screenshot_from_2014-05-08_01-48-37.png" width="360">
+<img src="blog/p/projects/silent/Screenshot_from_2014-05-08_01-48-37.png" width="360">
 
-<img src="p/projects/silent/Screenshot_from_2014-05-08_01-50-42.png" width="360">
+<img src="blog/p/projects/silent/Screenshot_from_2014-05-08_01-50-42.png" width="360">
 
 ## People Using Silent
 
