@@ -1,11 +1,13 @@
 {
   "name": "silent",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Be a silent, static blog",
   "keywords": [
-    "silent",
+    "blog",
     "static",
-    "blog"
+    "template",
+    "site",
+    "silent"
   ],
   "dependencies": {},
   "devDependencies": {

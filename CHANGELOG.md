@@ -1,5 +1,11 @@
 ## Changelog
 
+- v0.1.1 (12/19)
+  1. no longer a cmd tool
+  1. no longer a node lib
+  1. update deps & fix eslint
+  1. recommend using prj to init
+
 - v0.1.0 (06/18)
   1. fix local link target
   1. no-semicolon style
