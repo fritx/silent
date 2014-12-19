@@ -9,9 +9,9 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "gulp": "~3.7.0",
-    "gulp-eslint": "^0.1.7",
-    "gulp-eol": "0.0.1"
+    "gulp": "^3.8.10",
+    "gulp-eol": "^0.1.1",
+    "gulp-eslint": "^0.2.0"
   },
   "homepage": "https://github.com/fritx/silent",
   "repository": {

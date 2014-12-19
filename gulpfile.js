@@ -8,7 +8,7 @@ var gulp = require('gulp')
 var eslint = require('gulp-eslint')
 var eol = require('gulp-eol')
 
-gulp.task('eslint', function () {
+gulp.task('eslint', ['eol'], function () {
   return gulp.src([
       'blog/vendor/blog.js',
       '*.js'
@@ -19,9 +19,11 @@ gulp.task('eslint', function () {
 gulp.task('eol', function () {
   return gulp.src([
       '**/*.{json,md,js,css,html}',
-      '**/.{gitignore,npmignore,eslintrc}',
-      '!blog/vendor/**/*.min.{js,css}',
+      '.{gitignore,npmignore,eslintrc}',
+      '!**/*.min.*',
       '!node_modules/**'
     ]).pipe(eol('\n'))
     .pipe(gulp.dest('.'))
 })
+
+gulp.task('default', ['eol', 'eslint'])

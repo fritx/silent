@@ -7,7 +7,8 @@
     "camelcase": false,
     "curly": false,
     "no-console": false,
-    "no-global-strict": false,
+    "global-strict": false,
+    "no-shadow": false,
     "no-use-before-define": false,
     "no-undef": false,
     "no-unused-vars": false
