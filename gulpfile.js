@@ -11,7 +11,6 @@ var eol = require('gulp-eol')
 gulp.task('eslint', function () {
   return gulp.src([
       'blog/vendor/blog.js',
-      'bin/cli.js',
       '*.js'
     ]).pipe(eslint())
     .pipe(eslint.format())

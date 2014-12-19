@@ -7,14 +7,7 @@
     "static",
     "blog"
   ],
-  "main": "index.js",
-  "bin": {
-    "silent": "bin/cli.js"
-  },
-  "dependencies": {
-    "fs-extra": "~0.8.1",
-    "minimist": "0.0.8"
-  },
+  "dependencies": {},
   "devDependencies": {
     "gulp": "~3.7.0",
     "gulp-eslint": "^0.1.7",
