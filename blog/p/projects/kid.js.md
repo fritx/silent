@@ -2,7 +2,7 @@
 
 > Another Browser-side Module Loader.
 
-Source code: [kid.js](https://github.com/fritx/kid.js)
+Source Code: [fritx/kid.js](https://github.com/fritx/kid.js)
 
 ## Kid.js vs Sea.js vs Require.js
 

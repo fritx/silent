@@ -1,7 +1,3 @@
-*.out
-*.log
-*~
-.idea
-.sublime-*
-gulpfile.js
+CHANGELOG.md
+gulpfile.*
 .eslintrc

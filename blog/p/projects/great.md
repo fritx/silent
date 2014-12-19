@@ -2,7 +2,7 @@
 
 > Another task runner with js
 
-Source code: [great](https://github.com/fritx/great)
+Source Code: [fritx/great](https://github.com/fritx/great)
 
 ## great vs gulp vs grunt
 
