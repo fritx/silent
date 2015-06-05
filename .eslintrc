@@ -1,16 +1,12 @@
-{
-  "rules": {
-    "no-space-before-semi": false,
-    "no-extra-semi": false,
-    "semi": false,
-    "quotes": "single",
-    "camelcase": false,
-    "curly": false,
-    "no-console": false,
-    "global-strict": false,
-    "no-shadow": false,
-    "no-use-before-define": false,
-    "no-undef": false,
-    "no-unused-vars": false
-  }
-}
+rules:
+    indent: 2 spaces
+    quotes: single
+    global-strict: false
+    no-extra-semi: false
+    semi: false
+    camelcase: false
+    curly: false
+    no-shadow: false
+    no-use-before-define: false
+    no-undef: false
+    no-unused-vars: false

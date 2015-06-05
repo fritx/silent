@@ -7,13 +7,13 @@
     "static",
     "template",
     "site",
+    "silentor",
     "silent"
   ],
-  "dependencies": {},
   "devDependencies": {
-    "gulp": "^3.8.10",
+    "gulp": "^3.9.0",
     "gulp-eol": "^0.1.1",
-    "gulp-eslint": "^0.2.0"
+    "gulp-eslint": "^0.13.2"
   },
   "homepage": "https://github.com/fritx/silent",
   "repository": {

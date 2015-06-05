@@ -14,14 +14,15 @@ gulp.task('eslint', ['eol'], function () {
       '*.js'
     ]).pipe(eslint())
     .pipe(eslint.format())
+    .pipe(eslint.failOnError())
 })
 
 gulp.task('eol', function () {
   return gulp.src([
-      '**/*.{json,md,js,css,html}',
-      '.{gitignore,npmignore,eslintrc}',
+      '!node_modules/**',
       '!**/*.min.*',
-      '!node_modules/**'
+      '**/*.{json,md,js,css,html}',
+      '.{*ignore,*lintrc}'
     ]).pipe(eol('\n'))
     .pipe(gulp.dest('.'))
 })
