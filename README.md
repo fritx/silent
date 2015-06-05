@@ -1,22 +1,32 @@
 # silent
 
+<img src="https://github.com/fritx/silent/blob/dev/pic/si1ent.png">
+
 > Be a silent, static blog
 
-Live Demo: <http://fritx.github.io/silent>
+Live Demo: <http://fritx.github.io/silent><br>
+Also, a branch by @Jayin: [Meizhuo/silentor](https://github.com/Meizhuo/silentor)
+
+## Silent One-Year Old
+
+<img width="360" src="https://github.com/fritx/silent/blob/dev/pic/tshirt-x360.png">
+
+- Buy it: [优定制UDZ silent-Tshirt](http://udz.com/silent)
+- Blog Post: [silent项目一周年](http://fritx.github.io/blog/?2015/05/silent-one-year-old/)
 
 ## Features
 
 ### Easy: Writing in Markdown
 
-Or you can use any other renderer instead
+> Markdown makes contents more **focused**
 
-All you need is to rewrite at most **2** functions
+Or you can use any other renderer instead
 
 ### Flexible: Special Page Mastering
 
-> Everything is a page
+> Everything, is under **1** folder
 
-Everything, is under **1** folder
+Everything is a **page**, and every page is a **file**
 
 ### Lightweight: You Can't Imagine
 
@@ -24,6 +34,7 @@ Everything, is under **1** folder
 
 Look, here's a sample of the folders, and nothing else:
 
+```
 - blog/
   - p/ (your own things, free to handle)
     - posts/
@@ -37,9 +48,12 @@ Look, here's a sample of the folders, and nothing else:
     - aboutme.md
     - avatar.jpg
   - vendor/ (built-in stuffs)
+    - blog.css
+    - blog.js
     - ...
   - favicon.ico
   - index.html
+```
 
 ## Usage
 
@@ -70,13 +84,9 @@ prj silent
 
 > Thank you!
 
+- [Jayin's Blog](http://jayin.github.io)
+- [Derek's Blog](http://derekgame2013.github.io/blog/)
 - [huang's Blog](http://huangruichang.github.io)
-- [Jason's Blog](http://jacsonlee.github.io/Blog)
+- [Jason's Blog](http://jacsonlee.github.io/Blog/)
 - [Jayden's Blog](http://iamjayden.github.io)
-- [Fritx's Blog](http://fritx.github.io/blog)
-
-## Note
-
-*Current style is heavily learnt from [hyde](https://github.com/mdo/hyde) and Github*
-
-*Favicon is copied from [Underscore](https://github.com/jashkenas/underscore)*
+- [Fritx's Blog](http://fritx.github.io/blog/)
