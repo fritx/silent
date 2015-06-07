@@ -1,5 +1,11 @@
 ## Changelog
 
+- v0.1.2 (06/07)
+  1. fix resolve: ignore trailing slash
+  1. update font-family & code block style
+  1. upgrade gulp-deps & eslint
+  1. update readme
+
 - v0.1.1 (12/19)
   1. no longer a cmd tool
   1. no longer a node lib
