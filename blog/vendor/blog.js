@@ -108,6 +108,7 @@
   }
 
   function resolve(path) {
+    path = path.replace(/\/+$/, '') // ignore trailing slash
     var segs = path.split('/')
     var buf = []
     for (var i = 0; i < segs.length; i++) {
