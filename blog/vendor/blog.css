@@ -3,27 +3,39 @@ html, body {
   padding: 0;
   line-height: 1.5;
   font-size: 106%;
-  font-family: "Microsoft YaHei", sans-serif;
+  /* font-family: "Microsoft Yahei", sans-serif; */
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  word-break: break-word;
+  /* word-break: break-all; */
   background-color: #fff;
 }
 
 img {
+  border: 0;
   max-width: 100%;
-  height: auto;
+  /* height: auto; */
+}
+ul, ol {
+  padding-left: 30px;
+}
+a {
+  color: rgb(0, 0, 238);
 }
 
 /* learnt from github */
 pre, code {
   font-family: Consolas, "Liberation Mono", Courier, monospace, sans-serif;
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
+  background-color: #f7f7f7;
   border-radius: 3px;
 }
 pre {
-  padding: 6px 10px;
-  overflow: auto;
   font-size: 60%;
   line-height: 160%;
+  padding: 16px;
+  margin: 0;
+  overflow: auto;
+  word-break: normal;
+  word-wrap: normal;
 }
 code {
   padding: 2px 5px;
@@ -39,6 +51,7 @@ table {
   font-size: 80%;
   width: 100%;
   overflow: auto;
+  word-break: normal;
   display: block;
   margin: 15px 0;
   border-collapse: collapse;
@@ -94,6 +107,9 @@ blockquote {
 }
 
 @media (min-width: 640px) {
+  ul, ol {
+    padding-left: 40px;
+  }
   pre {
     font-size: 80%;
   }
