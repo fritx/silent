@@ -7,13 +7,6 @@
 Live Demo: <http://fritx.github.io/silent><br>
 Also, a branch by @Jayin: [Meizhuo/silentor](https://github.com/Meizhuo/silentor)
 
-## Silent One-Year Old
-
-<img width="360" src="http://blog.fritx.me/p/projects/silent/pic/tshirt-x360.png">
-
-- Buy it: [优定制UDZ silent-Tshirt](http://udz.com/silent)
-- Blog post: [silent项目一周年](http://blog.fritx.me/?2015/05/silent-one-year-old/)
-
 ## Features
 
 ### Easy: Writing in Markdown
@@ -22,17 +15,15 @@ Also, a branch by @Jayin: [Meizhuo/silentor](https://github.com/Meizhuo/silentor
 
 Or you can use any other renderer instead
 
-### Flexible: Special Page Mastering
+### Flexible: Special Page Management
 
-> Everything, is under **1** folder
+> With only **1** folder, do it yourself
 
 Everything is a **page**, and every page is a **file**
 
 ### Lightweight: You Can't Imagine
 
 > 1 html, 1 ico, 1 css and 1 js, totally **7K** (excluding jquery & marked)
-
-Look, here's a sample of the folders, and nothing else:
 
 ```plain
 - blog/
@@ -55,22 +46,9 @@ Look, here's a sample of the folders, and nothing else:
   - index.html
 ```
 
-## Usage
+### Responsive: All is Well
 
-> Fast and easy
-
-```shell
-$ git clone git@github.com:fritx/silent.git
-```
-
-Or via [fritx/prj](https://github.com/fritx/prj):
-
-```shell
-$ npm install --global prj
-$ prj silent
-```
-
-## Screenshots
+> Never mind the screens
 
 <img src="http://blog.fritx.me/p/projects/silent/pic/Screenshot_from_2014-05-08_01-43-18.png" width="140">
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -80,13 +58,33 @@ $ prj silent
 
 <img src="http://blog.fritx.me/p/projects/silent/pic/Screenshot_from_2014-05-08_01-50-42.png" width="360">
 
-## People Using Silent
+## Silent Fans
 
 > Thank you!
 
-- [Jayin Blog](http://jayin.github.io)
+- [Jayin's Blog](http://jayin.github.io)
 - [Derek's Blog](http://derekgame2013.github.io/blog/)
-- [huang's Blog](http://huangruichang.github.io)
+- [Huang's Blog](http://huangruichang.github.io)
 - [Jason's Blog](http://jacsonlee.github.io/Blog/)
 - [Jayden's Blog](http://iamjayden.github.io)
 - [Fritx' Blog](http://fritx.github.io/blog/)
+
+<img height="227" src="pic/0-derek.JPG">&nbsp;
+<img height="227" src="pic/1-jason.JPG">&nbsp;
+<img height="227" src="pic/7-huang.JPG">&nbsp;
+<img height="227" src="pic/2-jayin-0.JPG">
+
+<img height="227" src="pic/2-jayin-1.JPG">&nbsp;
+<img height="227" src="pic/4-jerry.JPG">&nbsp;
+<img height="227" src="pic/8-water.JPG">
+
+<img height="227" src="pic/5-jayden.JPG">&nbsp;
+<img height="227" src="pic/6-xj.JPG">&nbsp;
+<img height="227" src="pic/3-fritx.JPG">
+
+## More..
+
+> Rather than a framework or library, silent is more like a spirit - a culture. (says Huang)
+
+- [Silent T-Shirt](http://udz.com/silent)
+- [Silent One-Year Old](http://blog.fritx.me/?2015/05/silent-one-year-old)
