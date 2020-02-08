@@ -1,6 +1,6 @@
 # silent
 
-<img src="http://blog.fritx.me/p/projects/silent/pic/si1ent.png">
+<img src="https://blog.fritx.me/p/projects/silent/pic/si1ent.png">
 
 > Be a silent, static blog
 
@@ -50,13 +50,13 @@ Everything is a **page**, and every page is a **file**
 
 > Never mind the screens
 
-<img src="http://blog.fritx.me/p/projects/silent/pic/Screenshot_from_2014-05-08_01-43-18.png" width="140">
+<img src="https://blog.fritx.me/p/projects/silent/pic/Screenshot_from_2014-05-08_01-43-18.png" width="140">
 &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="http://blog.fritx.me/p/projects/silent/pic/Screenshot_from_2014-05-08_01-56-27.png" width="270">
+<img src="https://blog.fritx.me/p/projects/silent/pic/Screenshot_from_2014-05-08_01-56-27.png" width="270">
 
-<img src="http://blog.fritx.me/p/projects/silent/pic/Screenshot_from_2014-05-08_01-48-37.png" width="360">
+<img src="https://blog.fritx.me/p/projects/silent/pic/Screenshot_from_2014-05-08_01-48-37.png" width="360">
 
-<img src="http://blog.fritx.me/p/projects/silent/pic/Screenshot_from_2014-05-08_01-50-42.png" width="360">
+<img src="https://blog.fritx.me/p/projects/silent/pic/Screenshot_from_2014-05-08_01-50-42.png" width="360">
 
 ## Silent Fans
 
