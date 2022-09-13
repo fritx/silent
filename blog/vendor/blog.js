@@ -6,30 +6,50 @@
 
   'use strict'
 
-  var sidebarSel, mainSel
   var pageExt, pageBase
   var sidebarPage, defaultPage
   var mainPage, mainTitle
   var entryUrl, onlineUrl, shortName
 
+  function load(sel, stack, isMain, callback) {
+    if (typeof stack === 'string') {
+      if (/\/$/.test(stack)) {
+        stack = [stack + 'index', stack.replace(/\/$/, '')]
+      } else {
+        stack = [stack, stack + '/index']
+      }
+    }
 
-  function load(sel, page, isMain) {
+    var page = stack.shift()
     isMain = isMain || false
+    if (isMain) {
+      onlineUrl = entryUrl + '?' + page
+    }
+
     var url = pageBase + page + pageExt
-    var dir = url.replace(
-      new RegExp('[^\\/]*$', 'g'), ''
-    )
+    var dir = url.replace(new RegExp('[^\\/]*$', 'g'), '')
     $.ajax({
       url: url,
-      error: onNotFound,
+      error: function (err) {
+        if (stack.length) {
+          return load(sel, stack, isMain, callback)
+        }
+        onNotFound(err)
+      },
       success: function (data) {
         render(data, function (err, html) {
+          if (err) {
+            return console.error('render err', err)
+          }
           var $el = $(sel)
           $el.hide().html(html)
 
           $el.find('[src]').each(function () {
             var $el = $(this)
             $el.attr('src', function (x, old) {
+              if ($el.attr('data-noop') != null) {
+                return old
+              }
               if (isAbsolute(old)) {
                 return old
               }
@@ -44,23 +64,32 @@
                 $el.attr('target', '_blank')
                 return old
               }
+              if (/^\?/.test(old)) {
+                // supports in-site ?-search
+                return old
+              }
               var prefixed = resolve(dir + old)
               var hashRegex = new RegExp('#.*')
               var hash = (function (match) {
                 return match && match[0] || ''
               })(old.match(hashRegex))
               var dehashed = prefixed.replace(hashRegex, '')
+
               var extRegex = new RegExp(slashes(pageExt) + '$')
-              if (!extRegex.test(dehashed)) {
-                if (new RegExp('^\\.\\/').test(old)) {
-                  // ./ heading for new tag
-                  $el.attr('target', '_blank')
-                }
-                return prefixed
+              if (extRegex.test(dehashed) || /\/$/.test(dehashed)) {
+                return (
+                  '?' +
+                  dehashed
+                    .replace(new RegExp('^' + slashes(pageBase)), '')
+                    .replace(extRegex, '') +
+                  hash
+                )
               }
-              return '?' + dehashed.replace(
-                  new RegExp('^' + slashes(pageBase)), ''
-                ).replace(extRegex, '') + hash
+              if (new RegExp('^\\.\\/').test(old)) {
+                // ./ heading for new tag
+                $el.attr('target', '_blank')
+              }
+              return prefixed
             })
           })
 
@@ -71,32 +100,32 @@
             })
           })
 
-          if (isMain) {
-            mainTitle = $el.find('h1, h2, h3, h4, h5, h6')
-              .first().text()
-            $('title').text(function (x, old) {
-              return mainTitle + ' - ' + old
-            })
-            comments()
-          }
+          $el.find('pre code').each(function (i, el) {
+            hljs.highlightBlock(el)
+          })
 
           $el.show().attr('data-loaded', true)
+          if (isMain) onMainRendered()
+          if (callback) callback()
         })
       }
     })
   }
 
-  function loadSidebar(page) {
-    load(sidebarSel, page)
-  }
-
-  function loadMain(page) {
-    load(mainSel, page, true)
+  function onMainRendered() {
+    mainTitle = $('#main-page').find('h1, h2, h3, h4, h5, h6').first().text().trim()
+    document.title = mainTitle
+    $('#disqus_thread').empty()
+    comments()
+    shares()
   }
 
   function onNotFound() {
-    if (mainPage === defaultPage) return
-    if (!$('#main-page').attr('data-loaded')) location.href = '.'
+    if ($('#main-page').attr('data-loaded') != null) {
+      // onMainRendered()
+    } else if (location.search) {
+      location.href = '.'
+    }
   }
 
   function slashes(str) {
@@ -108,7 +137,7 @@
   }
 
   function resolve(path) {
-    path = path.replace(/\/+$/, '') // ignore trailing slash
+    // path = path.replace(/\/+$/, '') // ignore trailing slash
     var segs = path.split('/')
     var buf = []
     for (var i = 0; i < segs.length; i++) {
@@ -132,40 +161,95 @@
 
     var dsq = document.createElement('script')
     dsq.async = true
-    dsq.src = '//' + name + '.disqus.com/embed.js'
+    // dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js'
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js'
     document.getElementsByTagName('body')[0].appendChild(dsq)
   }
 
   config()
   start()
 
-
   function render(data, callback) {
-
     //// Optional template renderer
     marked(data, callback)
   }
 
   function comments() {
-
     //// Optional comment system
-    //disqus(shortName, mainTitle, mainPage, onlineUrl)
+    // opt.1 disqus
+    // disqus(shortName, mainTitle, mainPage, onlineUrl)
+  }
+
+  function shares() {
+    //// Optional share system
   }
 
   function start() {
-    mainPage = resolve(
-      location.search.slice(1)
-        .replace(new RegExp('&.*'), '') || defaultPage
-    )
-    onlineUrl = entryUrl + '/?' + mainPage
+    var seg = location.search.slice(1).replace(/&.*$/g, '')
 
-    loadSidebar(sidebarPage)
-    loadMain(mainPage)
+    // fucking wechat again
+    // like /?graduation-thanks=
+    // or /?graduation-thanks=/ (SublimeServer)
+    seg = seg.replace(/=[\/\\]*$/, '')
+
+    // fucking wechat pending
+    // like /?from=singlemessage&isappinstalled=0
+    if (/=/.test(seg)) seg = null
+    mainPage = resolve(seg || defaultPage)
+
+    load('#sidebar-page', sidebarPage)
+    load('#main-page', mainPage, true)
   }
 
   function config() {
+    var renderer = new marked.Renderer()
+
+    // 实现trello的 超链接效果 自动识别github issues
+    var _link = renderer.link
+    renderer.link = function (href, title, text) {
+      if (text === href) {
+        var tx = ''
+
+        var mat = href.match(
+          /github\.com\/(.+)\/(.+)\/(issues|pull)\/(\d+)(#(.+))?/
+        )
+        if (mat) {
+          // tx = mat[1] +'/'+ mat[2] +': Issue #'+ mat[4] // trello
+          tx = mat[1] + '/' + mat[2] + '#' + mat[4] // github
+          if (mat[6]) tx += ' (comment)'
+        } else if (
+          (mat = href.match(/github\.com\/(.+)\/(.+)\/commit\/([0-9a-f]+)/))
+        ) {
+          // tx = mat[1] +'/'+ mat[2] +': '+ mat[3].slice(0, 7) // trello
+          tx = mat[1] + '/' + mat[2] + '@' + mat[3].slice(0, 7) // github
+        } else if (
+          (mat = href.match(/github\.com\/(.+)\/(.+)\/blob\/([^/]+)\/(.+)/))
+        ) {
+          tx = mat[1] + '/' + mat[2] + ' - ' + mat[4]
+        } else if ((mat = href.match(/github\.com\/(.+)\/([^/]+)/))) {
+          tx = mat[1] + '/' + mat[2]
+        }
+
+        if (tx) {
+          var $a = $('<a>').text(tx).attr({
+            class: 'known-service-link',
+            href: href,
+            title: title
+          })
+          var $icon = $('<img>').attr({
+            'data-noop': '',
+            class: 'known-service-icon',
+            src: 'vendor/github.png'
+          })
+          $a.prepend($icon)
+          return $a.prop('outerHTML')
+        }
+      }
+      return _link.call(renderer, href, title, text)
+    }
+
     marked.setOptions({
-      renderer: new marked.Renderer(),
+      renderer: renderer,
       gfm: true,
       tables: true,
       breaks: false,
@@ -176,16 +260,13 @@
     })
 
     //// For comment systems
-    //entryUrl = 'http://fritx.github.io/silent'
-    //shortName = 'silent-blog'
-
-    sidebarSel = '#sidebar-page'
-    mainSel = '#main-page'
+    entryUrl = 'https://fritx.github.io/silent/'
+    shortName = 'silent-blog'
 
     pageExt = '.md'
     pageBase = 'p/'
+    // add a trailing slash if it is an index.md of a directory
     sidebarPage = 'sidebar'
-    defaultPage = 'projects/index'
+    defaultPage = 'projects'
   }
-
 })()

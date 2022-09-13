@@ -3,11 +3,17 @@ html, body {
   padding: 0;
   line-height: 1.5;
   font-size: 106%;
-  /* font-family: "Microsoft Yahei", sans-serif; */
-  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  /*font-family: "Microsoft YaHei", sans-serif;*/
+  /*font-family: "Helvetica neue",Helvetica,Tahoma,"lantinghei sc","Microsoft Yahei", sans-serif;*/
+  font-family: "Helvetica neue", "Microsoft Yahei", sans-serif;
   word-break: break-word;
   /* word-break: break-all; */
   background-color: #fff;
+}
+
+hr {
+  border: none;
+  border-bottom: dashed 2px #D3DCE6; /* element-ui gray */
 }
 
 img {
@@ -18,35 +24,33 @@ img {
 ul, ol {
   padding-left: 30px;
 }
-a {
-  color: rgb(0, 0, 238);
+
+code, kbd, pre, samp { /* normalize.css */
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+/* 隐藏局部滚动条 样式兼容问题 */
+pre code::-webkit-scrollbar, table::-webkit-scrollbar{display:none;}
+
+pre {
+  word-break: break-all;
+}
+code {
+  /* .hljs zenburn */
+  background: #3f3f3f;
+  color: #dcdcdc;
+  font-size: 80%;
+  -webkit-border-radius: 6px; /* 同scroller圆角 */
+  border-radius: 6px;
+}
+pre code, pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.6em 1em;
 }
 
 /* learnt from github */
-pre, code {
-  font-family: Consolas, "Liberation Mono", Courier, monospace, sans-serif;
-  background-color: #f7f7f7;
-  border-radius: 3px;
-}
-pre {
-  font-size: 60%;
-  line-height: 160%;
-  padding: 16px;
-  margin: 0;
-  overflow: auto;
-  word-break: normal;
-  word-wrap: normal;
-}
-code {
-  padding: 2px 5px;
-  margin: 0 2px;
-}
-pre > code {
-  border: none;
-  background-color: inherit;
-  padding: 0;
-  margin: 0;
-}
 table {
   font-size: 80%;
   width: 100%;
@@ -75,10 +79,13 @@ blockquote {
   padding: 0 15px;
   color: #777;
 }
+a {
+  color: #4078c0;
+}
 
 .sidebar {
   color: #fff;
-  background-color: #2a2a2a;
+  background-color: #336699;
 }
 .sidebar-inner {
   padding: 2% 5%;
@@ -90,7 +97,7 @@ blockquote {
   text-decoration: none;
 }
 .sidebar blockquote {
-  color: #999;
+  color: #bbb;
 }
 
 .main-inner {
@@ -99,6 +106,13 @@ blockquote {
 .main-page {
   padding-bottom: 3%;
 }
+.main-page img {
+  /*-webkit-box-shadow: 0 0 6px rgba(0,0,0, .6);
+  -moz-box-shadow: 0 0 6px rgba(0,0,0, .6);
+  -ms-box-shadow: 0 0 6px rgba(0,0,0, .6);
+  -o-box-shadow: 0 0 6px rgba(0,0,0, .6);
+  box-shadow: 0 0 6px rgba(0,0,0, .6);*/
+}
 
 .img-holder {
   position: absolute;
@@ -106,12 +120,39 @@ blockquote {
   left: -9999px;
 }
 
+.fork-me {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+}
+
+/* 实现trello的 超链接效果 自动识别github issues */
+.known-service-link {
+  font-size: 90%;
+  color: #444;
+  background: #D6DADC;
+  border-radius: 3px;
+  padding: 0 4px;
+}
+.known-service-icon {
+  width: 14px;
+  height: 14px;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+
+/* 暂时感觉这类标签应该inline-block展示 */
+code,
+.known-service-link {
+  display: inline-block;
+  margin: 2px;
+  padding: 0 4px;
+}
+
 @media (min-width: 640px) {
   ul, ol {
     padding-left: 40px;
-  }
-  pre {
-    font-size: 80%;
   }
   table {
     font-size: 100%;
@@ -124,6 +165,10 @@ blockquote {
   .main-inner {
     padding-left: 10%;
     padding-right: 10%;
+  }
+
+  .fork-me {
+    position: fixed;
   }
 }
 

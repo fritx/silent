@@ -1,6 +1,6 @@
-# [Fritx's Blog](..)
+# [Fritx' Blog](..)
 
-> Life is short, I use JS.
+> Life is short, I use JS
 
-- [Projects](projects/index.md)
+- [Projects](projects.md)
 - [About Me](aboutme.md)

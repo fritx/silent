@@ -6,39 +6,67 @@
   <!-- responsive -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-  <title>Fritx's Blog</title>
+  <title>Fritx' Blog</title>
 
   <!-- favicon -->
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
+  <!-- url fixing -->
+  <script>
+  // 1. remove extraneous index.html, index.htm
+  // 2. ensure trailing slash
+  if (location.pathname.slice(-1) !== '/') {
+    location.href = location.origin + location.pathname.replace(/\/index\.html?$/, '') +
+      '/' + location.search + location.hash;
+  }
+  </script>
+
   <!-- import vendor styles -->
+  <link rel="stylesheet" href="vendor/zenburn.css">
   <link rel="stylesheet" href="vendor/blog.css">
 </head>
 <body>
 
-<!-- fill the img in shared links -->
-<img class="img-holder" src="p/avatar.jpg">
+<a target="_blank" href="https://github.com/fritx/silent">
+  <img class="fork-me" src="vendor/fork.png">
+</a>
 
-<div class="contents">
-
-  <!-- sidebar -->
+<!-- settle contents -->
+<div class="contents" id="contents">
   <div class="sidebar">
     <div class="sidebar-inner">
       <div class="sidebar-page" id="sidebar-page"></div>
     </div>
   </div>
 
-  <!-- main -->
   <div class="main" id="main">
     <div class="main-inner">
       <div class="main-page" id="main-page"></div>
+
+      <!-- disqus container -->
+      <div id="disqus_thread"></div>
     </div>
   </div>
 </div>
 
+<!-- fill the img in shared links -->
+<img class="img-holder" id="img-holder" src="p/avatar.jpg">
+
 <!-- import vendor scripts -->
 <script src="vendor/jquery-1.11.1.min.js"></script>
 <script src="vendor/marked-0.3.2.min.js"></script>
+<script src="vendor/highlight.pack.js"></script>
 <script src="vendor/blog.js"></script>
+
+<!-- import baidu stats -->
+<!-- <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script> -->
 </body>
 </html>
