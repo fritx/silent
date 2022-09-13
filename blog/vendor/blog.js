@@ -115,6 +115,14 @@
   function onMainRendered() {
     mainTitle = $('#main-page').find('h1, h2, h3, h4, h5, h6').first().text().trim()
     document.title = mainTitle
+
+    // supports mermaid diagrams
+    // https://mermaid-js.github.io/mermaid/#/usage?id=calling-mermaidinit
+    mermaid.parseError = function (err, hash) {
+      console.error('mermaid.parseError', err, hash)
+    }
+    mermaid.init()
+
     comments()
     shares()
   }
@@ -150,6 +158,12 @@
       buf.push(seg)
     }
     return buf.join('/') || '.'
+  }
+
+  function htmlEntityEncode(str) {
+    var dom = document.createElement('div')
+    dom.textContent = str
+    return dom.innerHTML
   }
 
   function disqus(name, title, id, url) {
@@ -245,7 +259,21 @@
           return $a.prop('outerHTML')
         }
       }
+
       return _link.call(renderer, href, title, text)
+    }
+
+    // supports mermaid diagrams
+    // http://mermaid-js.github.io/mermaid/#/usage?id=example-of-a-marked-renderer
+    // NOTICE: should handle XSS security?
+    var _code = renderer.code
+    renderer.code = function (code, language) {
+      if (language === 'mermaid') {
+        var id = String(Math.random()).slice(2)
+        var safeHtml = htmlEntityEncode(code)
+        return '<div class="mermaid" id="mermaid-' + id + '">' + safeHtml + '</div>'
+      }
+      return _code.apply(this, arguments)
     }
 
     marked.setOptions({
