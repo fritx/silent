@@ -1,13 +1,13 @@
-# Projects that I work in
+# Projects that I worked in
 
-## [silent](projects/silent/)
+## [react-drag-sizing](projects/react-drag-sizing/README.md)
+
+> "Drag to resize" (sizing) as React Component.
+
+## [vue-at](projects/vue-at/README.md)
+
+> At.js for Vue.
+
+## [silent](projects/silent/README.md)
 
 > Be a silent, static blog
-
-## [great](projects/great.md)
-
-> Another task runner with js
-
-## [kid.js](projects/kid.js.md)
-
-> Another Browser-side Module Loader.

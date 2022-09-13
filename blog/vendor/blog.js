@@ -115,7 +115,6 @@
   function onMainRendered() {
     mainTitle = $('#main-page').find('h1, h2, h3, h4, h5, h6').first().text().trim()
     document.title = mainTitle
-    $('#disqus_thread').empty()
     comments()
     shares()
   }
@@ -154,6 +153,8 @@
   }
 
   function disqus(name, title, id, url) {
+    $('#disqus_thread').empty()
+
     window.disqus_shortname = name
     window.disqus_title = title
     window.disqus_identifier = id
@@ -161,7 +162,6 @@
 
     var dsq = document.createElement('script')
     dsq.async = true
-    // dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js'
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js'
     document.getElementsByTagName('body')[0].appendChild(dsq)
   }

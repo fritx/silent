@@ -1,6 +1,6 @@
 {
   "name": "silent",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Be a silent, static blog",
   "keywords": [
     "blog",
@@ -10,11 +10,6 @@
     "silentor",
     "silent"
   ],
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-eol": "^0.1.1",
-    "gulp-eslint": "^0.13.2"
-  },
   "homepage": "https://github.com/fritx/silent",
   "repository": "git@github.com:fritx/silent.git",
   "license": "MIT"

@@ -17,4 +17,4 @@
 
 ## Blog powered by
 
-An Entire Static Blog Framework: [silent](https://github.com/fritx/silent)
+An Entire Static Blog Framework: [silent](projects/silent/README.md)

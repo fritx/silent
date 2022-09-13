@@ -1,9 +1,9 @@
 # silent
 
-<a href="https://github.com/fritx/silent"><img src="blog/p/projects/github-badge.svg" width="85" height="20"></a>
-&nbsp;&nbsp;<a href="https://gitter.im/fritx"><img src="blog/p/projects/gitter-badge.svg" width="99" height="20"></a>
+<a href="https://github.com/fritx/silent"><img src="../github-badge.svg" width="85" height="20"></a>
+&nbsp;&nbsp;<a href="https://gitter.im/fritx"><img src="../gitter-badge.svg" width="99" height="20"></a>
 
-<img src="blog/p/projects/silent/pic/si1ent.png">
+<img src="pic/si1ent.png">
 
 > Be a silent, static blog
 
@@ -53,13 +53,13 @@ Everything is a **page**, and every page is a **file**
 
 > Never mind the screens
 
-<img src="blog/p/projects/silent/pic/Screenshot_from_2014-05-08_01-43-18.png" width="140">
+<img src="pic/Screenshot_from_2014-05-08_01-43-18.png" width="140">
 &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="blog/p/projects/silent/pic/Screenshot_from_2014-05-08_01-56-27.png" width="270">
+<img src="pic/Screenshot_from_2014-05-08_01-56-27.png" width="270">
 
-<img src="blog/p/projects/silent/pic/Screenshot_from_2014-05-08_01-48-37.png" width="360">
+<img src="pic/Screenshot_from_2014-05-08_01-48-37.png" width="360">
 
-<img src="blog/p/projects/silent/pic/Screenshot_from_2014-05-08_01-50-42.png" width="360">
+<img src="pic/Screenshot_from_2014-05-08_01-50-42.png" width="360">
 
 ## Silent Fans
 
@@ -76,7 +76,7 @@ Everything is a **page**, and every page is a **file**
 
 > Rather than a framework or library, silent is more like a spirit - a culture. (says Huang)
 
-- [Silent One Year Old](https://blog.fritx.me/?2015/05/silent-one-year-old)
+- [Silent One Year Old](../../2015/05/silent-one-year-old/)
 - ~~[Silent T-Shirt](http://udz.com/silent)~~
 
-<img width="360" src="blog/p/projects/silent/pic/tshirt-x360.png">
+<img width="360" src="pic/tshirt-x360.png">
