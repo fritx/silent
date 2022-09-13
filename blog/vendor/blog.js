@@ -27,7 +27,6 @@
     }
 
     var url = pageBase + page + pageExt
-    var dir = url.replace(new RegExp('[^\\/]*$', 'g'), '')
     $.ajax({
       url: url,
       error: function (err) {
@@ -43,72 +42,77 @@
           }
           var $el = $(sel)
           $el.hide().html(html)
-
-          $el.find('[src]').each(function () {
-            var $el = $(this)
-            $el.attr('src', function (x, old) {
-              if ($el.attr('data-noop') != null) {
-                return old
-              }
-              if (isAbsolute(old)) {
-                return old
-              }
-              return resolve(dir + old)
-            })
-          })
-
-          $el.find('[href]').each(function () {
-            var $el = $(this)
-            $el.attr('href', function (x, old) {
-              if (isAbsolute(old)) {
-                $el.attr('target', '_blank')
-                return old
-              }
-              if (/^\?/.test(old)) {
-                // supports in-site ?-search
-                return old
-              }
-              var prefixed = resolve(dir + old)
-              var hashRegex = new RegExp('#.*')
-              var hash = (function (match) {
-                return match && match[0] || ''
-              })(old.match(hashRegex))
-              var dehashed = prefixed.replace(hashRegex, '')
-
-              var extRegex = new RegExp(slashes(pageExt) + '$')
-              if (extRegex.test(dehashed) || /\/$/.test(dehashed)) {
-                return (
-                  '?' +
-                  dehashed
-                    .replace(new RegExp('^' + slashes(pageBase)), '')
-                    .replace(extRegex, '') +
-                  hash
-                )
-              }
-              if (new RegExp('^\\.\\/').test(old)) {
-                // ./ heading for new tag
-                $el.attr('target', '_blank')
-              }
-              return prefixed
-            })
-          })
-
-          $el.find('p').each(function () {
-            var $el = $(this)
-            $el.html(function (x, old) {
-              return old.replace(/\n+/g, '')
-            })
-          })
-
-          $el.find('pre code').each(function (i, el) {
-            hljs.highlightBlock(el)
-          })
+          postProcess($el, url)
 
           $el.show().attr('data-loaded', true)
           if (isMain) onMainRendered()
           if (callback) callback()
         })
       }
+    })
+  }
+
+  function postProcess($el, url) {
+    var dir = url.replace(new RegExp('[^\\/]*$', 'g'), '')
+
+    $el.find('[src]').each(function () {
+      var $el = $(this)
+      $el.attr('src', function (x, old) {
+        if ($el.attr('data-noop') != null) {
+          return old
+        }
+        if (isAbsolute(old)) {
+          return old
+        }
+        return resolve(dir + old)
+      })
+    })
+
+    $el.find('[href]').each(function () {
+      var $el = $(this)
+      $el.attr('href', function (x, old) {
+        if (isAbsolute(old)) {
+          $el.attr('target', '_blank')
+          return old
+        }
+        if (/^\?/.test(old)) {
+          // supports in-site ?-search
+          return old
+        }
+        var prefixed = resolve(dir + old)
+        var hashRegex = new RegExp('#.*')
+        var hash = (function (match) {
+          return match && match[0] || ''
+        })(old.match(hashRegex))
+        var dehashed = prefixed.replace(hashRegex, '')
+
+        var extRegex = new RegExp(slashes(pageExt) + '$')
+        if (extRegex.test(dehashed) || /\/$/.test(dehashed)) {
+          return (
+            '?' +
+            dehashed
+              .replace(new RegExp('^' + slashes(pageBase)), '')
+              .replace(extRegex, '') +
+            hash
+          )
+        }
+        if (new RegExp('^\\.\\/').test(old)) {
+          // ./ heading for new tag
+          $el.attr('target', '_blank')
+        }
+        return prefixed
+      })
+    })
+
+    $el.find('p').each(function () {
+      var $el = $(this)
+      $el.html(function (x, old) {
+        return old.replace(/\n+/g, '')
+      })
+    })
+
+    $el.find('pre code').each(function (i, el) {
+      hljs.highlightBlock(el)
     })
   }
 
