@@ -1,4 +1,4 @@
-# Projects that I worked in
+# 🎯 Projects that I worked in
 
 ## [Projects timeline](projects/timeline.md)
 
