@@ -9,7 +9,6 @@
   var pageExt, pageBase
   var sidebarPage, defaultPage
   var mainPage, mainTitle
-  var entryUrl, onlineUrl, shortName
 
   function load(sel, stack, isMain, callback) {
     if (typeof stack === 'string') {
@@ -22,9 +21,6 @@
 
     var page = stack.shift()
     isMain = isMain || false
-    if (isMain) {
-      onlineUrl = entryUrl + '?' + page
-    }
 
     var url = pageBase + page + pageExt
     $.ajax({
@@ -245,18 +241,35 @@
     return navTitle
   }
 
-  function disqus(name, title, id, url) {
-    $('#disqus_thread').empty()
-
-    window.disqus_shortname = name
+  // opt.1 disqus
+  // https://disqus.com/admin/install/platforms/universalcode/
+  function disqus(shortName, title, id) {
+    window.disqus_shortname = shortName
     window.disqus_title = title
     window.disqus_identifier = id
-    window.disqus_url = url
-
-    var dsq = document.createElement('script')
-    dsq.async = true
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js'
-    document.getElementsByTagName('body')[0].appendChild(dsq)
+    window.disqus_url = location.href
+    $('<div>').attr({ id: 'disqus_thread' }).appendTo('#comment-system')
+    $('<script>').attr({
+      src: 'https://' + shortName + '.disqus.com/embed.js',
+      'data-timestamp': +new Date(),
+      async: true
+    }).appendTo('head')
+  }
+  // opt.2 cusdis
+  // https://cusdis.com/doc#/advanced/sdk?id=js-sdk
+  function cusdis(host, appId, title, id) {
+    $('<div>').attr({
+      id: 'cusdis_thread',
+      'data-host': host,
+      'data-app-id': appId,
+      'data-page-id': id,
+      'data-page-url': location.href,
+      'data-page-title': title
+    }).appendTo('#comment-system')
+    $('<script>').attr({
+      src: 'https://cusdis.com/js/cusdis.umd.js',
+      async: true
+    }).appendTo('head')
   }
 
   config()
@@ -270,7 +283,17 @@
   function comments() {
     //// Optional comment system
     // opt.1 disqus
-    // disqus(shortName, mainTitle, mainPage, onlineUrl)
+    var dqsShortName = 'silent-blog'
+    disqus(dqsShortName, mainTitle, mainPage)
+
+    // opt.2 cusdis
+    // var cdsHost = 'https://cusdis.com'
+    // var cdsAppId = '3ab3a14f-bcb2-4a6f-b984-742a15463f80'
+    // cusdis(cdsHost, cdsAppId, mainTitle, mainPage)
+
+    // opt.3 giscus
+    // giscus logic should be added directly to html
+    // to make it work instead, see index.html
   }
 
   function shares() {
@@ -365,10 +388,6 @@
       smartLists: true,
       smartypants: false
     })
-
-    //// For comment systems
-    entryUrl = 'https://fritx.github.io/silent/'
-    shortName = 'silent-blog'
 
     pageExt = '.md'
     pageBase = 'p/'
