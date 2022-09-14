@@ -1,0 +1,20 @@
+{
+  "name": "create-silent",
+  "version": "0.0.1",
+  "description": "Be a silent, static blog",
+  "keywords": [
+    "blog",
+    "static",
+    "template",
+    "site",
+    "silentor",
+    "silent"
+  ],
+  "homepage": "https://github.com/fritx/silent",
+  "repository": "git@github.com:fritx/silent.git",
+  "license": "MIT",
+  "bin": "cli.js",
+  "dependencies": {
+    "silent": "^0.2.0"
+  }
+}

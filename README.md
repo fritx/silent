@@ -1,4 +1,4 @@
-# silent
+# silent 2.0
 
 <a href="https://github.com/fritx/silent"><img src="blog/p/projects/github-badge.svg" width="85" height="20"></a>
 &nbsp;&nbsp;<a href="https://gitter.im/fritx"><img src="blog/p/projects/gitter-badge.svg" width="99" height="20"></a>
@@ -7,59 +7,47 @@
 
 > Be a silent, static blog
 
-Live Demo: <https://fritx.github.io/silent><br>
-Also, a branch by @Jayin: [Meizhuo/silentor](https://github.com/Meizhuo/silentor)
+for silent 1.0, check [this](https://github.com/fritx/silent/tree/v1) out
 
 ## Features
 
-### Easy: Writing in Markdown
+- old-school, clean and safe
+  - [x] no MVVM frameworks (no vue, react, etc)
+  - [x] no CCS frameworks
+  - [ ] no jQuery
+  - [ ] IE 6+ support (needs polyfill, etc)
+- static & portable
+  - [x] no node_modules (no dependencies, etc)
+  - [x] no build systems (no gulp, webpack, etc)
+  - [x] source code is all it needs to run
+  - [ ] npm-create tooling
+- funny & fancy
+  - [x] auto favicon (extracted from title)
+  - [x] favicon dark mode
+  - [ ] page-level dark mode
+- extendable & integration
+  - [x] optional comment system: disqus +cusdis +giscus, etc
+  - [ ] optional permission auth
 
-> Markdown makes contents more **focused**
+## Browser Compatibility
 
-Or you can use any other renderer instead
+Status: no IE
 
-### Flexible: Special Page Management
+- [ ] no IE https://caniuse.com/?search=arr%20includes
+- [ ] no IE https://caniuse.com/?search=str%20includes
+- [ ] IE10+ https://caniuse.com/?search=console
+- [ ] IE9+ https://caniuse.com/?search=querySelector
+- [ ] IE9+ https://caniuse.com/?search=css3%20selectors
 
-> With only **1** folder, do it yourself
+auto title favicon:
 
-Everything is a **page**, and every page is a **file**
+- [x] no IE https://caniuse.com/?search=prefers-color-scheme
+- [x] IE10+ https://caniuse.com/?search=matchMedia
+- [ ] IE9+ https://caniuse.com/?search=canvas
 
-### Lightweight: You Can't Imagine
+if using giscus:
 
-> 1 html, 1 ico, 1 css and 1 js, totally **7K** (excluding jquery & marked)
-
-```plain
-- blog/
-  - p/ (your own things, free to handle)
-    - posts/
-      - my-js-book/
-        - index.md
-        - part-1.md
-        - part-2.md
-      - what-a-funny-day.md
-      - why-i-use-js.md
-    - sidebar.md
-    - aboutme.md
-    - avatar.jpg
-  - vendor/ (built-in stuffs)
-    - blog.css
-    - blog.js
-    - ...
-  - favicon.ico
-  - index.html
-```
-
-### Responsive: All is Well
-
-> Never mind the screens
-
-<img src="blog/p/projects/silent/pic/Screenshot_from_2014-05-08_01-43-18.png" width="140">
-&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="blog/p/projects/silent/pic/Screenshot_from_2014-05-08_01-56-27.png" width="270">
-
-<img src="blog/p/projects/silent/pic/Screenshot_from_2014-05-08_01-48-37.png" width="360">
-
-<img src="blog/p/projects/silent/pic/Screenshot_from_2014-05-08_01-50-42.png" width="360">
+- [ ] IE8+ https://caniuse.com/?search=localstorage
 
 ## Silent Fans
 
