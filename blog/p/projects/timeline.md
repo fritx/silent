@@ -6,7 +6,7 @@
 gantt
   title 2021-2022
   axisFormat  %Y-%m
-  silent 2.0      :2022-09-09 , 2022-09-13
+  silent 2.0      :2022-09-09 , 2022-09-30
   wxacf-digest      :2022-07-07 , 2022-08-10
   wxapp-digest      :2022-07-01 , 2022-08-10
   wxapp-calendar      :2022-03-20 , 2022-07-19

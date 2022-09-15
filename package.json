@@ -3,6 +3,15 @@
   "workspaces": [
     "packages/**"
   ],
+  "scripts": {
+    "deploy": "gh-pages -d blog",
+    "sync": "npm run sync:readme",
+    "sync:readme": "cat README.md | jayin -ti -to 'x.replaceAll(`https://github.com/fritx/silent/tree/v1`, `../silent/`).replaceAll(`https://blog.fritx.me/?`, `?`).replaceAll(`https://fritx.github.io/silent/?`, `?`).replaceAll(`https://fritx.github.io/silent/p/`, `../../`)' > blog/p/projects/silent_2.0/README.md"
+  },
+  "devDependencies": {
+    "gh-pages": "^4.0.0",
+    "jayin": "^0.0.3"
+  },
   "homepage": "https://github.com/fritx/silent",
   "repository": "git@github.com:fritx/silent.git",
   "license": "MIT"

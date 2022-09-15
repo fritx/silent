@@ -1,12 +1,12 @@
 # silent 2.0
 
-<a href="https://github.com/fritx/silent"><img src="https://fritx.github.io/silent/p/projects/github-badge.svg" width="85" height="20"></a>&nbsp;&nbsp;<a href="https://gitter.im/fritx"><img src="https://fritx.github.io/silent/p/projects/gitter-badge.svg" width="99" height="20"></a>&nbsp;&nbsp;<a href="https://www.npmjs.com/package/silent"><img height="20" src="https://img.shields.io/npm/dm/silent.svg"></a>
+<a href="https://github.com/fritx/silent"><img src="../../projects/github-badge.svg" width="85" height="20"></a>&nbsp;&nbsp;<a href="https://gitter.im/fritx"><img src="../../projects/gitter-badge.svg" width="99" height="20"></a>&nbsp;&nbsp;<a href="https://www.npmjs.com/package/silent"><img height="20" src="https://img.shields.io/npm/dm/silent.svg"></a>
 
-<img src="https://fritx.github.io/silent/p/projects/silent/pic/si1ent.png">
+<img src="../../projects/silent/pic/si1ent.png">
 
 > Be a silent, static blog
 
-for silent 1.0, check [this](https://github.com/fritx/silent/tree/v1) out
+for silent 1.0, check [this](../silent/) out
 
 ## Features
 
@@ -40,18 +40,18 @@ for silent 1.0, check [this](https://github.com/fritx/silent/tree/v1) out
 - [x] favicon dark mode
 - [ ] page-level dark mode
 
-<img width="400" src="https://fritx.github.io/silent/p/projects/silent_2.0/WechatIMG533.png">
+<img width="400" src="../../projects/silent_2.0/WechatIMG533.png">
 
-<img width="600" src="https://fritx.github.io/silent/p/projects/silent_2.0/WechatIMG532.png">
+<img width="600" src="../../projects/silent_2.0/WechatIMG532.png">
 
 ### Security & Stability
 
 - [x] responsive design
 - [ ] IE 6+ support (needs polyfill, etc)
 
-<img width="160" src="https://fritx.github.io/silent/p/2016/08/屏幕快照 2016-08-02 下午6.35.12.png">
+<img width="160" src="../../2016/08/屏幕快照 2016-08-02 下午6.35.12.png">
 
-<img width="300" src="https://fritx.github.io/silent/p/2016/08/屏幕快照 2016-08-02 下午5.46.40.png">
+<img width="300" src="../../2016/08/屏幕快照 2016-08-02 下午5.46.40.png">
 
 ## Usage
 
@@ -111,7 +111,7 @@ if using giscus:
 
 > Rather than a framework or library, silent is more like a spirit - a culture. (says Huang)
 
-- [Silent One Year Old](https://fritx.github.io/silent/?2015/05/silent-one-year-old)
+- [Silent One Year Old](?2015/05/silent-one-year-old)
 - ~~[Silent T-Shirt](http://udz.com/silent)~~
 
-<img width="360" src="https://fritx.github.io/silent/p/projects/silent/pic/tshirt-x360.png">
+<img width="360" src="../../projects/silent/pic/tshirt-x360.png">

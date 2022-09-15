@@ -17,4 +17,4 @@
 
 ## Blog powered by
 
-An Entire Static Blog Framework: [silent](projects/silent/README.md)
+An Entire Static Blog Framework: [silent](projects/silent_2.0/)

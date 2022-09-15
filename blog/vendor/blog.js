@@ -13,7 +13,7 @@
   function load(sel, stack, isMain, callback) {
     if (typeof stack === 'string') {
       if (/\/$/.test(stack)) {
-        stack = [stack + 'index', stack.replace(/\/$/, '')]
+        stack = [stack + 'index', stack + 'README', stack.replace(/\/$/, '')]
       } else {
         stack = [stack, stack + '/index']
       }
@@ -282,9 +282,9 @@
 
   function comments() {
     //// Optional comment system
-    // opt.1 disqus
-    var dqsShortName = 'silent-blog'
-    disqus(dqsShortName, mainTitle, mainPage)
+    // opt.1 disqus (not recommended in China due to the GFW)
+    // var dqsShortName = 'silent-blog'
+    // disqus(dqsShortName, mainTitle, mainPage)
 
     // opt.2 cusdis
     // var cdsHost = 'https://cusdis.com'

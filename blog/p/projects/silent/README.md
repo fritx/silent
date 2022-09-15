@@ -1,7 +1,7 @@
-# silent
+# silent 1.0-legacy
 
 <a href="https://github.com/fritx/silent"><img src="../github-badge.svg" width="85" height="20"></a>
-&nbsp;&nbsp;<a href="https://gitter.im/fritx"><img src="../gitter-badge.svg" width="99" height="20"></a>
+&nbsp;&nbsp;<a href="https://gitter.im/fritx"><img src="../gitter-badge.svg" width="99" height="20"></a>&nbsp;&nbsp;<a href="https://www.npmjs.com/package/silent"><img height="20" src="https://img.shields.io/npm/dm/silent.svg"></a>
 
 <img src="pic/si1ent.png">
 
@@ -9,6 +9,8 @@
 
 Live Demo: <https://fritx.github.io/silent><br>
 Also, a branch by @Jayin: [Meizhuo/silentor](https://github.com/Meizhuo/silentor)
+
+for silent 2.0, check [this](../silent_2.0/) out
 
 ## Features
 

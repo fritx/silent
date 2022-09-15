@@ -2,6 +2,7 @@
 
 > Life is short, I use JS
 
+- [🔐 Reports](reports/)
 - [🌈 Posts](posts.md)
-- [🎯 Projects](projects.md)
+- [🎯 Projects](projects/)
 - [😅 About Me](aboutme.md)
