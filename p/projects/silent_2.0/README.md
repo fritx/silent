@@ -20,7 +20,7 @@ for silent 1.0, check [this](../silent/) out
 
 - [x] no node_modules (no dependencies, etc)
 - [x] no build systems (no gulp, webpack, etc)
-- [x] no github actions required. just static serve
+- [x] no CI/CD required (no github-actions, etc)
 - [x] source code is all it needs to run
 - [x] npm-create tooling
 
@@ -31,7 +31,7 @@ for silent 1.0, check [this](../silent/) out
 
 ### Extendable & Integration
 
-- [x] google analytics, baidu analytics, etc
+- [x] analytics: google, baidu, etc
 - [x] comment system: [disqus](https://disqus.com) +[cusdis](https://cusdis.com) +[giscus](https://giscus.app), etc
 - [ ] backend permission api
 
@@ -71,10 +71,14 @@ npm create silent ~/t/my-blog
 # silent-create completed
 
 # serve it
-npm i -g serve
-serve ~/t/my-blog -p 3000
+npx serve ~/t/my-blog -p 3000
 # >>>
 # Serving! http://localhost:3000
+
+# deploy to your github pages?
+npx gh-pages -d ~/t/blog -r git@github.com:fritx/silent.git
+# >>>
+# Published. https://fritx.github.io/silent/
 ```
 
 ## Browser Compatibility
