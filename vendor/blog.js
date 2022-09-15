@@ -283,8 +283,8 @@
   function comments() {
     //// Optional comment system
     // opt.1 disqus (not recommended in China due to the GFW)
-    var dqsShortName = 'silent-blog'
-    disqus(dqsShortName, mainTitle, mainPage)
+    // var dqsShortName = 'silent-blog'
+    // disqus(dqsShortName, mainTitle, mainPage)
 
     // opt.2 cusdis
     // var cdsHost = 'https://cusdis.com'

@@ -40,9 +40,9 @@ for silent 1.0, check [this](../silent/) out
 - [x] favicon dark mode
 - [ ] page-level dark mode
 
-<img width="400" src="WechatIMG533.png">
+<img width="400" src="../../projects/silent_2.0/WechatIMG533.png">
 
-<img width="600" src="WechatIMG532.png">
+<img width="600" src="../../projects/silent_2.0/WechatIMG532.png">
 
 ### Security & Stability
 
