@@ -31,6 +31,7 @@ for silent 1.0, check [this](../silent/) out
 
 ### Extendable & Integration
 
+- [x] google analytics, baidu analytics, etc
 - [x] comment system: [disqus](https://disqus.com) +[cusdis](https://cusdis.com) +[giscus](https://giscus.app), etc
 - [ ] backend permission api
 
