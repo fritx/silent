@@ -1,6 +1,6 @@
 {
   "name": "silent",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Be a silent, static blog",
   "keywords": [
     "blog",
@@ -15,15 +15,8 @@
   "license": "MIT",
   "bin": "cli.js",
   "main": "index.js",
-  "scripts": {
-    "setup": "npm run sync:blog",
-    "sync:blog": "shx rm -rf blog && shx cp -r ../../blog ."
-  },
   "dependencies": {
     "prompts": "^2.4.2",
     "shelljs": "^0.8.5"
-  },
-  "devDependencies": {
-    "shx": "^0.3.4"
   }
 }
