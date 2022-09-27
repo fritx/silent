@@ -70,7 +70,7 @@
 
 3. Open one of the index pages, for example, `p/posts.md`, and click the ✏️ (edit button)
 
-  ... and then add a corresponding link and a digest, like: (relative path is required)
+  ... and then add a corresponding link and a digest, like: (a relative path is required)
 
   ```diff
    <!-- p/posts.md -->
@@ -84,8 +84,6 @@
    ## [Blog Setup via Github Fork](2022/09/blog-setup-via-github-fork.md)
    ...
   ```
-
-  A relative path is required
 
   <img width=600 src=WX20220927-164651.png>
 
