@@ -20,7 +20,8 @@ for silent 1.0, check [this](https://github.com/fritx/silent/tree/v1) out
 
 - [x] no node_modules (no dependencies, etc)
 - [x] no build systems (no gulp, webpack, etc)
-- [x] no github actions required. just static serve
+- [x] no extra build commands (no npm-run-build or -generate)
+- [x] no CI/CD required (github-actions can be optional)
 - [x] source code is all it needs to run
 - [x] npm-create tooling
 
@@ -31,6 +32,7 @@ for silent 1.0, check [this](https://github.com/fritx/silent/tree/v1) out
 
 ### Extendable & Integration
 
+- [x] analytics: google, baidu, etc
 - [x] comment system: [disqus](https://disqus.com) +[cusdis](https://cusdis.com) +[giscus](https://giscus.app), etc
 - [ ] backend permission api
 
@@ -42,7 +44,7 @@ for silent 1.0, check [this](https://github.com/fritx/silent/tree/v1) out
 
 <img width="400" src="https://fritx.github.io/silent/p/projects/silent_2.0/WechatIMG533.png">
 
-<img width="600" src="https://fritx.github.io/silent/p/projects/silent_2.0/WechatIMG532.png">
+<img width="500" src="https://fritx.github.io/silent/p/projects/silent_2.0/WX20220927-173925.png">
 
 ### Security & Stability
 
@@ -70,10 +72,18 @@ npm create silent ~/t/my-blog
 # silent-create completed
 
 # serve it
-npm i -g serve
-serve ~/t/my-blog -p 3000
+cd ~/t/my-blog
+npx serve . -p 3000
 # >>>
 # Serving! http://localhost:3000
+
+# deploy to your github pages?
+cd ~/t/my-blog
+git init
+git remote add origin git@github.com:fritx/silent.git
+npx gh-pages -d .
+# >>>
+# Published. https://fritx.github.io/silent/
 ```
 
 ## Browser Compatibility

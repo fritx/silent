@@ -1,6 +1,6 @@
 # 🎯 Projects that I worked in
 
-## [Projects timeline](timeline.md)
+## [📅 Projects timeline](timeline.md)
 
 > All my projects on Github
 
@@ -8,7 +8,7 @@
 
 > Be a silent, static blog
 
-## [react-drag-sizing](react-drag-sizing/)
+## [✋🏻 react-drag-sizing](react-drag-sizing/)
 
 > "Drag to resize" (sizing) as React Component.
 

@@ -4,7 +4,7 @@
 
 > silent不是我在github的第一个项目，但绝对是生命力最持久，收获眼球最多的一个
 
-## [silent one year old](2015/05/silent-one-year-old/)
+## [🎉 silent one year old](2015/05/silent-one-year-old/)
 
 > silent不是我在github的第一个项目，但绝对是生命力最持久，收获眼球最多的一个
 
