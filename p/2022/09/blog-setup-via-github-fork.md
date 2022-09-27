@@ -38,6 +38,12 @@
 
   <img width=600 src=WX20220927-155434.png>
 
+8. Update the `About` section, replace the description and link with your own ones
+
+  ... so that everyone can give it a try! 🌏
+
+  <img width=600 src=WX20220927-222427.png>
+
 ## ... but How do I add a post?
 
 1. First of all, you need to understand a bit of **Markdown**, and its syntax
@@ -62,9 +68,9 @@
   +bla bla bla...
   ```
 
-3. Click the `pencil` (edit button) to add a corresponding link and digest in an index page, like:
+3. Open one of the index pages, for example, `p/posts.md`, and click the ✏️ (edit button)
 
-  A relative path is required
+  ... and then add a corresponding link and a digest, like: (relative path is required)
 
   ```diff
    <!-- p/posts.md -->
@@ -78,6 +84,8 @@
    ## [Blog Setup via Github Fork](2022/09/blog-setup-via-github-fork.md)
    ...
   ```
+
+  A relative path is required
 
   <img width=600 src=WX20220927-164651.png>
 

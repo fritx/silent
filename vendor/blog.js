@@ -394,6 +394,6 @@
     pageBase = 'p/'
     // add a trailing slash if it is an index.md of a directory
     sidebarPage = 'sidebar'
-    defaultPage = 'projects'
+    defaultPage = 'posts'
   }
 })()
