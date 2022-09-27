@@ -1,10 +1,14 @@
 # 🌈 My Posts
 
+## [🚀 Blog Setup via Github Fork](2022/09/blog-setup-via-github-fork.md)
+
+> We chose silent, a static blog template, for example
+
 ## [silent talk](2016/08/silent-talk.md)
 
 > silent不是我在github的第一个项目，但绝对是生命力最持久，收获眼球最多的一个
 
-## [silent one year old](2015/05/silent-one-year-old/)
+## [🎉 silent one year old](2015/05/silent-one-year-old/)
 
 > silent不是我在github的第一个项目，但绝对是生命力最持久，收获眼球最多的一个
 

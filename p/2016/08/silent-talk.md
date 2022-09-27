@@ -31,7 +31,7 @@ silent出生于2014年5月份，和我一样都是金牛座。
   <img width="200" src="屏幕快照 2016-08-02 下午6.35.12.png"><br>
   <img width="400" src="屏幕快照 2016-08-02 下午5.46.40.png">
 
-silent不仅仅是框架，同时也是一个极简博客模板，任何人都可以沿用这种思路，改造为更适合自己的blog框架。英爷的silentor就是一个非常棒的例子。
+silent不仅仅是框架，同时也是一个极简博客模板，任何人都可以沿用这种思路，改造为更适合自己的blog框架。英爷的[silentor](https://github.com/Jayin/silentor)就是一个非常棒的例子。
 
 对了，去年silent一周年的时候，我们还特地为silent用户定制了Tshirt，silent的主题色是灰黑色。
 

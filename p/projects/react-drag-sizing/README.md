@@ -1,4 +1,4 @@
-# react-drag-sizing
+# ✋🏻 react-drag-sizing
 
 <a href="https://github.com/fritx/react-drag-sizing"><img src="../github-badge.svg" width="85" height="20"></a>
 &nbsp;&nbsp;<a href="https://www.npmjs.com/package/react-drag-sizing"><img height="20" src="https://img.shields.io/npm/dm/react-drag-sizing.svg"></a>

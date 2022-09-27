@@ -1,4 +1,4 @@
-# [Fritx' Blog](..)
+# [My Blog](..)
 
 > Life is short, I use JS
 
