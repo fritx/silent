@@ -64,7 +64,7 @@ npm create silent <dest>
 npm i -g silent
 silent create <dest>
 
-# eg.
+# e.g.
 npm create silent ~/t/my-blog
 # >>>
 # copying /Users/fritx/.nvm/versions/node/v16.14.0/lib/node_modules/silent/blog
