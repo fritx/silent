@@ -225,7 +225,7 @@
     }
   }
   darkModeChangeHandlers.push(function () {
-    setFavicon(lastFavicon)
+    if (lastFavicon) setFavicon(lastFavicon)
   })
 
   function autoTitleFavicon(mainTitle, emojiOnly) {

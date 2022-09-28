@@ -64,7 +64,7 @@ npm create silent <dest>
 npm i -g silent
 silent create <dest>
 
-# eg.
+# e.g.
 npm create silent ~/t/my-blog
 # >>>
 # copying /Users/fritx/.nvm/versions/node/v16.14.0/lib/node_modules/silent/blog
@@ -93,6 +93,7 @@ Status: no IE
 - [ ] no IE https://caniuse.com/?search=arr%20includes
 - [ ] no IE https://caniuse.com/?search=str%20includes
 - [ ] IE10+ https://caniuse.com/?search=console
+- [ ] IE9+ https://caniuse.com/?search=arr%20foreach
 - [ ] IE9+ https://caniuse.com/?search=querySelector
 - [ ] IE9+ https://caniuse.com/?search=css3%20selectors
 

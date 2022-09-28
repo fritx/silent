@@ -2,7 +2,7 @@
 
 *2022/09/27*
 
-> We chose [silent](https://github.com/fritx/silent), a static blog template, for example
+> We chose [silent](../../projects/silent_2.0/), a static blog template, for example
 
 1. Go to silent homepage: https://github.com/fritx/silent
 
@@ -18,7 +18,7 @@
   https://<username>.github.io/<repo>/
   ```
 
-  eg. https://h5lium.github.io/blog/
+  e.g., https://h5lium.github.io/blog/
 
 4. Don't forget to turn off the checkbox `Copy the xxx branch only`
 
@@ -32,7 +32,7 @@
 
   ... and **YOU'RE DONE!** 🎉 Try `https://<username>.github.io/<repo>/` in a few seconds.
 
-  eg. https://h5lium.github.io/blog/
+  e.g., https://h5lium.github.io/blog/
 
 7. (Optional) Switch the default branch to `gh-pages` in `Project Settings -> Branches`
 
@@ -52,7 +52,7 @@
 
 1. Head to the `p/` directory, where all the blog contents are listed
 
-  eg. https://github.com/h5lium/blog/tree/gh-pages/p
+  e.g., https://github.com/h5lium/blog/tree/gh-pages/p
 
   <img width=600 src=WX20220927-164233.png>
 
@@ -95,6 +95,6 @@
 - [silentor, a friendly fork of silent](https://v1.jayinton.com/silentor/)
 - https://github.com/Jayin/silentor
 - https://github.com/fritx/silent
-- [silent 2.0](https://fritx.github.io/silent/?projects/silent_2.0/)
-- [silent 1.0-legacy](https://fritx.github.io/silent/?projects/silent/)
-- [silent talk](https://fritx.github.io/silent/?2016/08/silent-talk)
+- [silent 2.0](../../projects/silent_2.0/)
+- [silent 1.0-legacy](../../projects/silent/)
+- [silent talk](../../2016/08/silent-talk.md)
