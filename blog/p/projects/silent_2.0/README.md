@@ -93,6 +93,7 @@ Status: no IE
 - [ ] no IE https://caniuse.com/?search=arr%20includes
 - [ ] no IE https://caniuse.com/?search=str%20includes
 - [ ] IE10+ https://caniuse.com/?search=console
+- [ ] IE9+ https://caniuse.com/?search=arr%20foreach
 - [ ] IE9+ https://caniuse.com/?search=querySelector
 - [ ] IE9+ https://caniuse.com/?search=css3%20selectors
 
@@ -110,6 +111,8 @@ if using giscus:
 
 > Thank you!
 
+- [Meizhuo's Blog](https://meizhuo.github.io/blog/)
+- [Amen's Blog](https://linzx89757.github.io/blog/)
 - [Jayin's Blog](https://v1.jayinton.com/blog/)
 - [Derek's Blog](https://derekgame2013.github.io/blog/)
 - [Huang's Blog](https://huangruichang.github.io)

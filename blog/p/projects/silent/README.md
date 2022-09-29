@@ -67,12 +67,14 @@ Everything is a **page**, and every page is a **file**
 
 > Thank you!
 
-- [Jayin's Blog](https://jayin.github.io)
+- [Meizhuo's Blog](https://meizhuo.github.io/blog/)
+- [Amen's Blog](https://linzx89757.github.io/blog/)
+- [Jayin's Blog](https://v1.jayinton.com/blog/)
 - [Derek's Blog](https://derekgame2013.github.io/blog/)
 - [Huang's Blog](https://huangruichang.github.io)
 - [Jason's Blog](https://jacsonlee.github.io/Blog/)
 - [Jayden's Blog](https://iamjayden.github.io)
-- [Fritx' Blog](https://fritx.github.io/blog/)
+- [Fritx' Blog](https://blog.fritx.me/)
 
 ## More..
 

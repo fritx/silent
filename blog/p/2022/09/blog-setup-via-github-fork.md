@@ -91,6 +91,7 @@
 
 **References:**
 
+- [开启你的个人博客之旅](https://github.com/hey-q/blog#readme)
 - [1分钟快速构建你的博客](https://v1.jayinton.com/silentor/?p=docs/getting-start/main.md)
 - [silentor, a friendly fork of silent](https://v1.jayinton.com/silentor/)
 - https://github.com/Jayin/silentor
