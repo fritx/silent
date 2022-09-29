@@ -1,4 +1,4 @@
-# gulp-eol bugfix review
+# 🐛 gulp-eol bugfix review
 
 *2014-09-06*
 

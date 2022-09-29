@@ -15,7 +15,7 @@
       if (/\/$/.test(stack)) {
         stack = [stack + 'index', stack + 'README', stack.replace(/\/$/, '')]
       } else {
-        stack = [stack, stack + '/index']
+        stack = [stack, stack + '/index', stack + '/README']
       }
     }
 
@@ -185,6 +185,7 @@
     })
   }
 
+  // TODO library extraction: title-favicon & text-favicon & emoji-detect
   // How to detect emoji using javascript
   // https://stackoverflow.com/questions/18862256/how-to-detect-emoji-using-javascript
   // +modification title-favicon bugfix: recognize emoji `✋🏻`
