@@ -1,5 +1,9 @@
 # 🌈 My Posts
 
+## [😡 What the \* is that! 🍎iCloud's "Hand off a webpage between devices"?](2022/09/wtf-is-that-mac-icloud-handoff-en.md)
+
+> No longer to worry that 🔞 pages I'm browsing is being sent to the iPad
+
 ## [🚀 Blog Setup via Github Fork](2022/09/blog-setup-via-github-fork.md)
 
 > We chose silent, a static blog template, for example
