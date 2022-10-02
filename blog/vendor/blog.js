@@ -271,11 +271,15 @@
     window.disqus_identifier = id
     window.disqus_url = location.href
     $('<div>').attr({ id: 'disqus_thread' }).appendTo('#comment-system')
-    $('<script>').attr({
-      src: 'https://' + shortName + '.disqus.com/embed.js',
-      'data-timestamp': +new Date(),
-      async: true
-    }).appendTo('head')
+
+    // adding setTimeout to prevent favicon from keeping loading instead of showing
+    // (disqus.com gets blocked when it's in GFW)
+    setTimeout(function () {
+      $('<script>').attr({
+        src: 'https://' + disqus_shortname + '.disqus.com/embed.js',
+        'data-timestamp': +new Date()
+      }).appendTo('body')
+    }, 1000)
   }
   // opt.2 cusdis
   // https://cusdis.com/doc#/advanced/sdk?id=js-sdk
