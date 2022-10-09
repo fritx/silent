@@ -67,6 +67,7 @@ Everything is a **page**, and every page is a **file**
 
 > Thank you!
 
+- [ZhanZengyu's Blog](https://zhanzengyu.github.io/blog/)
 - [Meizhuo's Blog](https://meizhuo.github.io/blog/)
 - [Amen's Blog](https://linzx89757.github.io/blog/)
 - [Jayin's Blog](https://v1.jayinton.com/blog/)
