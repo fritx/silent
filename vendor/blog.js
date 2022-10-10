@@ -391,6 +391,9 @@
   }
 
   function start() {
+    window.addEventListener('popstate', function () {
+      loadMain(location.search)
+    })
     $('#contents').delegate('[href]', 'click', function (e) {
       var $a = $(e.target)
       var url = $a.attr('href') || ''
