@@ -297,6 +297,27 @@
       async: true
     }).appendTo('head')
   }
+  // opt.2 giscus
+  // https://giscus.app/
+  function giscus(attrs) {
+    $('<div>').addClass('giscus').appendTo('#comment-system')
+    var dest = {
+      src: 'https://giscus.app/client.js',
+      'data-mapping': 'title', // mapping='title' is required for silent
+      'data-strict': '0',
+      'data-reactions-enabled': '1',
+      'data-emit-metadata': '0',
+      'data-input-position': 'bottom',
+      'data-theme': 'light', // silent doesn't support darkmode now
+      crossorigin: 'anonymous',
+      async: true
+    }
+    Object.keys(attrs).forEach(function (k) { dest[k] = attrs[k] })
+    // notice: $('<script>') not working here
+    var script = document.createElement('script')
+    Object.keys(dest).forEach(function (k) { script.setAttribute(k, dest[k]) })
+    document.body.appendChild(script)
+  }
 
   config()
   start()
@@ -318,8 +339,13 @@
     // cusdis(cdsHost, cdsAppId, mainTitle, mainPage)
 
     // opt.3 giscus
-    // giscus logic should be added directly to html
-    // to make it work instead, see index.html
+    giscus({
+      'data-repo': 'fritx/silent',
+      'data-repo-id': 'MDEwOlJlcG9zaXRvcnkxOTU3NDAyMQ==',
+      'data-category': 'Announcements',
+      'data-category-id': 'DIC_kwDOASqtBc4CRbFd',
+      'data-lang': 'en'
+    })
   }
 
   function shares() {
