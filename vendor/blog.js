@@ -282,13 +282,19 @@
 
   // opt.1 disqus
   // https://disqus.com/admin/install/platforms/universalcode/
+  var disqusInitiated = false
   function disqus(shortName, title, id) {
     window.disqus_shortname = shortName
     window.disqus_title = title
     window.disqus_identifier = id
     window.disqus_url = location.href
-    $('<div>').attr({ id: 'disqus_thread' }).appendTo('#comment-system')
-
+    // Using Disqus on AJAX sites
+    // https://help.disqus.com/en/articles/1717163-using-disqus-on-ajax-sites
+    if (disqusInitiated) {
+      DISQUS.reset({ reload: true })
+      return
+    }
+    disqusInitiated = true
     // adding setTimeout to prevent favicon from keeping loading instead of showing
     // (disqus.com gets blocked when it's in GFW)
     setTimeout(function () {
@@ -300,7 +306,9 @@
   }
   // opt.2 cusdis
   // https://cusdis.com/doc#/advanced/sdk?id=js-sdk
+  // TODO: adapt for SPA
   function cusdis(host, appId, title, id) {
+    $('#comment-system').empty()
     $('<div>').attr({
       id: 'cusdis_thread',
       'data-host': host,
@@ -361,13 +369,11 @@
     //// Optional comment system
     // opt.1 disqus (not recommended in China due to the GFW)
     // var dqsShortName = 'silent-blog'
-    // $('#comment-system').empty()
     // disqus(dqsShortName, mainTitle, mainPage)
 
     // opt.2 cusdis
     // var cdsHost = 'https://cusdis.com'
     // var cdsAppId = '3ab3a14f-bcb2-4a6f-b984-742a15463f80'
-    // $('#comment-system').empty()
     // cusdis(cdsHost, cdsAppId, mainTitle, mainPage)
 
     // opt.3 giscus
