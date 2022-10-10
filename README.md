@@ -93,6 +93,7 @@ Status: no IE
 - [ ] no IE https://caniuse.com/?search=arr%20includes
 - [ ] no IE https://caniuse.com/?search=str%20includes
 - [ ] IE10+ https://caniuse.com/?search=console
+- [ ] IE9+ https://caniuse.com/?search=object.keys
 - [ ] IE9+ https://caniuse.com/?search=arr%20foreach
 - [ ] IE9+ https://caniuse.com/?search=querySelector
 - [ ] IE9+ https://caniuse.com/?search=css3%20selectors
@@ -105,6 +106,8 @@ auto title favicon:
 
 if using giscus:
 
+- [ ] no IE https://caniuse.com/?search=ResizeObserver
+- [ ] IE8+ https://caniuse.com/?search=postmessage
 - [ ] IE8+ https://caniuse.com/?search=localstorage
 
 ## Silent Fans
