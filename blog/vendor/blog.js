@@ -9,6 +9,27 @@
   var pageExt, pageBase
   var sidebarPage, defaultPage
   var mainPage, mainTitle
+  var mainPageId
+
+  function loadSidebar() {
+    load('#sidebar-page', sidebarPage)
+  }
+
+  function loadMain(search) {
+    var seg = search.slice(1).replace(/&.*$/g, '')
+
+    // fucking wechat again
+    // like /?graduation-thanks=
+    // or /?graduation-thanks=/ (SublimeServer)
+    seg = seg.replace(/=[\/\\]*$/, '')
+
+    // fucking wechat pending
+    // like /?from=singlemessage&isappinstalled=0
+    if (/=/.test(seg)) seg = null
+
+    mainPage = resolve(seg || defaultPage)
+    load('#main-page', mainPage, true)
+  }
 
   function load(sel, stack, isMain, callback) {
     if (typeof stack === 'string') {
@@ -19,20 +40,27 @@
       }
     }
 
-    var page = stack.shift()
+    var pageId = stack.shift()
     isMain = isMain || false
+    if (isMain) mainPageId = pageId
 
-    var url = pageBase + page + pageExt
+    var url = pageBase + pageId + pageExt
     $.ajax({
       url: url,
       error: function (err) {
+        if (isMain && pageId !== mainPageId) return
+
         if (stack.length) {
           return load(sel, stack, isMain, callback)
         }
         onNotFound(err)
       },
       success: function (data) {
+        if (isMain && pageId !== mainPageId) return
+
         render(data, function (err, html) {
+          if (isMain && pageId !== mainPageId) return
+
           if (err) {
             return console.error('render err', err)
           }
@@ -49,6 +77,7 @@
   }
 
   function postProcess($el, url) {
+    window.scrollTo(0, 0)
     var dir = url.replace(new RegExp('[^\\/]*$', 'g'), '')
 
     $el.find('[src]').each(function () {
@@ -268,13 +297,20 @@
 
   // opt.1 disqus
   // https://disqus.com/admin/install/platforms/universalcode/
+  var disqusInitiated = false
   function disqus(shortName, title, id) {
     window.disqus_shortname = shortName
     window.disqus_title = title
     window.disqus_identifier = id
     window.disqus_url = location.href
+    // Using Disqus on AJAX sites
+    // https://help.disqus.com/en/articles/1717163-using-disqus-on-ajax-sites
+    if (disqusInitiated) {
+      if (window.DISQUS) DISQUS.reset({ reload: true })
+      return
+    }
+    disqusInitiated = true
     $('<div>').attr({ id: 'disqus_thread' }).appendTo('#comment-system')
-
     // adding setTimeout to prevent favicon from keeping loading instead of showing
     // (disqus.com gets blocked when it's in GFW)
     setTimeout(function () {
@@ -286,7 +322,9 @@
   }
   // opt.2 cusdis
   // https://cusdis.com/doc#/advanced/sdk?id=js-sdk
+  // TODO: adapt for SPA
   function cusdis(host, appId, title, id) {
+    $('#comment-system').empty()
     $('<div>').attr({
       id: 'cusdis_thread',
       'data-host': host,
@@ -300,9 +338,15 @@
       async: true
     }).appendTo('head')
   }
-  // opt.2 giscus
+  // opt.3 giscus
   // https://giscus.app/
+  var giscusInitiated = false
   function giscus(attrs) {
+    if (giscusInitiated) {
+      giscusSendMessage({ setConfig: { term: document.title } })
+      return
+    }
+    giscusInitiated = true
     $('<div>').addClass('giscus').appendTo('#comment-system')
     var dest = {
       src: 'https://giscus.app/client.js',
@@ -320,6 +364,36 @@
     var script = document.createElement('script')
     Object.keys(dest).forEach(function (k) { script.setAttribute(k, dest[k]) })
     document.body.appendChild(script)
+  }
+  // dynamically setConfig
+  // https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#parent-to-giscus-message-events
+  function giscusSendMessage(message) {
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+  }
+
+  function usePJAX() {
+    window.addEventListener('popstate', function () {
+      loadMain(location.search)
+    })
+    $('#contents').delegate('[href]', 'click', function (e) {
+      var $a = $(e.target)
+      var url = $a.attr('href') || ''
+      var target = $a.attr('target')
+      var isTargetSelf = [undefined, '_self'].includes(target)
+      var isSilentInternal = url === '.' || url.startsWith('?')
+      var isSameUrl = url === location.search || url === '' || url === '.' && !location.search
+      if (isTargetSelf && isSilentInternal) {
+        e.preventDefault()
+        if (isSameUrl) {
+          window.scrollTo(0, 0)
+        } else {
+          history.pushState({}, '', url)
+          loadMain(url)
+        }
+      }
+    })
   }
 
   config()
@@ -356,23 +430,14 @@
   }
 
   function start() {
-    var seg = location.search.slice(1).replace(/&.*$/g, '')
-
-    // fucking wechat again
-    // like /?graduation-thanks=
-    // or /?graduation-thanks=/ (SublimeServer)
-    seg = seg.replace(/=[\/\\]*$/, '')
-
-    // fucking wechat pending
-    // like /?from=singlemessage&isappinstalled=0
-    if (/=/.test(seg)) seg = null
-    mainPage = resolve(seg || defaultPage)
-
-    load('#sidebar-page', sidebarPage)
-    load('#main-page', mainPage, true)
+    loadSidebar()
+    loadMain(location.search)
   }
 
   function config() {
+    // Optional: history.pushState API (PJAX) for silent internal page navigation
+    usePJAX()
+
     var renderer = new marked.Renderer()
 
     // 实现trello的 超链接效果 自动识别github issues
