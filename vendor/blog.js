@@ -10,6 +10,22 @@
   var sidebarPage, defaultPage
   var mainPage, mainTitle
 
+  function loadMain(search) {
+    var seg = search.slice(1).replace(/&.*$/g, '')
+
+    // fucking wechat again
+    // like /?graduation-thanks=
+    // or /?graduation-thanks=/ (SublimeServer)
+    seg = seg.replace(/=[\/\\]*$/, '')
+
+    // fucking wechat pending
+    // like /?from=singlemessage&isappinstalled=0
+    if (/=/.test(seg)) seg = null
+    mainPage = resolve(seg || defaultPage)
+
+    load('#main-page', mainPage, true)
+  }
+
   function load(sel, stack, isMain, callback) {
     if (typeof stack === 'string') {
       if (/\/$/.test(stack)) {
@@ -49,6 +65,7 @@
   }
 
   function postProcess($el, url) {
+    $('#main-page').scrollTop(0)
     var dir = url.replace(new RegExp('[^\\/]*$', 'g'), '')
 
     $el.find('[src]').each(function () {
@@ -297,9 +314,15 @@
       async: true
     }).appendTo('head')
   }
-  // opt.2 giscus
+  // opt.3 giscus
   // https://giscus.app/
+  var giscusInitiated = false
   function giscus(attrs) {
+    if (giscusInitiated) {
+      giscusSendMessage({ setConfig: { term: document.title } })
+      return
+    }
+    giscusInitiated = true
     $('<div>').addClass('giscus').appendTo('#comment-system')
     var dest = {
       src: 'https://giscus.app/client.js',
@@ -318,6 +341,13 @@
     Object.keys(dest).forEach(function (k) { script.setAttribute(k, dest[k]) })
     document.body.appendChild(script)
   }
+  // dynamically setConfig
+  // https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#parent-to-giscus-message-events
+  function giscusSendMessage(message) {
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+  }
 
   config()
   start()
@@ -331,11 +361,13 @@
     //// Optional comment system
     // opt.1 disqus (not recommended in China due to the GFW)
     // var dqsShortName = 'silent-blog'
+    // $('#comment-system').empty()
     // disqus(dqsShortName, mainTitle, mainPage)
 
     // opt.2 cusdis
     // var cdsHost = 'https://cusdis.com'
     // var cdsAppId = '3ab3a14f-bcb2-4a6f-b984-742a15463f80'
+    // $('#comment-system').empty()
     // cusdis(cdsHost, cdsAppId, mainTitle, mainPage)
 
     // opt.3 giscus
@@ -353,20 +385,20 @@
   }
 
   function start() {
-    var seg = location.search.slice(1).replace(/&.*$/g, '')
-
-    // fucking wechat again
-    // like /?graduation-thanks=
-    // or /?graduation-thanks=/ (SublimeServer)
-    seg = seg.replace(/=[\/\\]*$/, '')
-
-    // fucking wechat pending
-    // like /?from=singlemessage&isappinstalled=0
-    if (/=/.test(seg)) seg = null
-    mainPage = resolve(seg || defaultPage)
+    $('#contents').delegate('[href]', 'click', function (e) {
+      var $a = $(e.target)
+      var url = $a.attr('href')
+      var target = $a.attr('target')
+      var isSilentInternal = url === '.' || url.startsWith('?')
+      if (isSilentInternal && [undefined, '_self'].includes(target)) {
+        e.preventDefault()
+        history.pushState({}, '', url)
+        loadMain(url)
+      }
+    })
 
     load('#sidebar-page', sidebarPage)
-    load('#main-page', mainPage, true)
+    loadMain(location.search)
   }
 
   function config() {
