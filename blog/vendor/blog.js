@@ -15,7 +15,7 @@
     load('#sidebar-page', sidebarPage)
   }
 
-  function loadMain(search) {
+  function loadMain(search, callback) {
     var seg = search.slice(1).replace(/&.*$/g, '')
 
     // fucking wechat again
@@ -28,7 +28,7 @@
     if (/=/.test(seg)) seg = null
 
     mainPage = resolve(seg || defaultPage)
-    load('#main-page', mainPage, true)
+    load('#main-page', mainPage, true, callback)
   }
 
   function load(sel, stack, isMain, callback) {
@@ -386,12 +386,12 @@
       var isSameUrl = url === location.search || url === '' || url === '.' && !location.search
       if (isTargetSelf && isSilentInternal) {
         e.preventDefault()
-        if (isSameUrl) {
-          window.scrollTo(0, 0)
-        } else {
-          history.pushState({}, '', url)
-          loadMain(url)
-        }
+        // explicit call Pace in case of no pushState
+        // Pace.restart: Called automatically whenever pushState or replaceState is called by default.
+        Pace.restart()
+        loadMain(url, function() {
+          if (!isSameUrl) history.pushState({}, '', url)
+        })
       }
     })
   }

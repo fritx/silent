@@ -38,6 +38,7 @@ for silent 1.0, check [this](https://github.com/fritx/silent/tree/v1) out
 
 ### Funny & Fancy
 
+- [x] progress bar on top
 - [x] auto favicon (extracted from title)
 - [x] favicon dark mode
 - [ ] page-level dark mode
