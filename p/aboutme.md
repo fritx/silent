@@ -1,5 +1,7 @@
 # 😅 About Me
 
+<hello@163.com>
+
 ## Fritz Lin
 
 <img alt="avatar" src="avatar.jpg" width="240">

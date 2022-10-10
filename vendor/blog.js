@@ -9,6 +9,7 @@
   var pageExt, pageBase
   var sidebarPage, defaultPage
   var mainPage, mainTitle
+  var mainPageId
 
   function loadMain(search) {
     var seg = search.slice(1).replace(/&.*$/g, '')
@@ -21,8 +22,8 @@
     // fucking wechat pending
     // like /?from=singlemessage&isappinstalled=0
     if (/=/.test(seg)) seg = null
-    mainPage = resolve(seg || defaultPage)
 
+    mainPage = resolve(seg || defaultPage)
     load('#main-page', mainPage, true)
   }
 
@@ -35,20 +36,27 @@
       }
     }
 
-    var page = stack.shift()
+    var pageId = stack.shift()
     isMain = isMain || false
+    if (isMain) mainPageId = pageId
 
-    var url = pageBase + page + pageExt
+    var url = pageBase + pageId + pageExt
     $.ajax({
       url: url,
       error: function (err) {
+        if (isMain && pageId !== mainPageId) return
+
         if (stack.length) {
           return load(sel, stack, isMain, callback)
         }
         onNotFound(err)
       },
       success: function (data) {
+        if (isMain && pageId !== mainPageId) return
+
         render(data, function (err, html) {
+          if (isMain && pageId !== mainPageId) return
+
           if (err) {
             return console.error('render err', err)
           }
@@ -157,8 +165,11 @@
     return str.replace(/([.?*+^$!:\[\]\\(){}|-])/g, '\\$1')
   }
 
+  // How to test if a URL string is absolute or relative?
+  // https://stackoverflow.com/questions/10687099/how-to-test-if-a-url-string-is-absolute-or-relative
+  // https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax
   function isAbsolute(url) {
-    return !url.indexOf('//') || !!~url.indexOf('://')
+    return /^(ftp:|https?:)?\/\//i.test(url) || /^(mailto|tel):/i.test(url)
   }
 
   function resolve(path) {
@@ -295,6 +306,7 @@
       return
     }
     disqusInitiated = true
+    $('<div>').attr({ id: 'disqus_thread' }).appendTo('#comment-system')
     // adding setTimeout to prevent favicon from keeping loading instead of showing
     // (disqus.com gets blocked when it's in GFW)
     setTimeout(function () {
@@ -404,11 +416,12 @@
       if (isTargetSelf && isSilentInternal) {
         e.preventDefault()
         if (isSameUrl) {
-          window.scrollTo(0, 0)
+          // Pace.restart: Called automatically whenever pushState or replaceState is called by default.
+          Pace.restart() // explicit call here
         } else {
           history.pushState({}, '', url)
-          loadMain(url)
         }
+        loadMain(url)
       }
     })
     load('#sidebar-page', sidebarPage)
