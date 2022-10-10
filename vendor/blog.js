@@ -65,7 +65,7 @@
   }
 
   function postProcess($el, url) {
-    $('#main-page').scrollTop(0)
+    window.scrollTo(0, 0)
     var dir = url.replace(new RegExp('[^\\/]*$', 'g'), '')
 
     $el.find('[src]').each(function () {
@@ -291,7 +291,7 @@
     // Using Disqus on AJAX sites
     // https://help.disqus.com/en/articles/1717163-using-disqus-on-ajax-sites
     if (disqusInitiated) {
-      DISQUS.reset({ reload: true })
+      if (window.DISQUS) DISQUS.reset({ reload: true })
       return
     }
     disqusInitiated = true
@@ -393,16 +393,21 @@
   function start() {
     $('#contents').delegate('[href]', 'click', function (e) {
       var $a = $(e.target)
-      var url = $a.attr('href')
+      var url = $a.attr('href') || ''
       var target = $a.attr('target')
+      var isTargetSelf = [undefined, '_self'].includes(target)
       var isSilentInternal = url === '.' || url.startsWith('?')
-      if (isSilentInternal && [undefined, '_self'].includes(target)) {
+      var isSameUrl = url === location.search || url === '' || url === '.' && !location.search
+      if (isTargetSelf && isSilentInternal) {
         e.preventDefault()
-        history.pushState({}, '', url)
-        loadMain(url)
+        if (isSameUrl) {
+          window.scrollTo(0, 0)
+        } else {
+          history.pushState({}, '', url)
+          loadMain(url)
+        }
       }
     })
-
     load('#sidebar-page', sidebarPage)
     loadMain(location.search)
   }
