@@ -140,8 +140,11 @@
     return str.replace(/([.?*+^$!:\[\]\\(){}|-])/g, '\\$1')
   }
 
+  // How to test if a URL string is absolute or relative?
+  // https://stackoverflow.com/questions/10687099/how-to-test-if-a-url-string-is-absolute-or-relative
+  // https://en.wikipedia.org/wiki/Uniform_Resource_Identifier#Syntax
   function isAbsolute(url) {
-    return !url.indexOf('//') || !!~url.indexOf('://')
+    return /^(ftp:|https?:)?\/\//i.test(url) || /^(mailto|tel):/i.test(url)
   }
 
   function resolve(path) {
