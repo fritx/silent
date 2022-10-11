@@ -9,13 +9,14 @@
   var pageExt, pageBase
   var sidebarPage, defaultPage
   var mainPage, mainTitle
-  var mainPageId
+  var mainPageId, mainSearch
 
   function loadSidebar() {
     load('#sidebar-page', sidebarPage)
   }
 
   function loadMain(search, callback) {
+    mainSearch = search
     var seg = search.slice(1).replace(/&.*$/g, '')
 
     // fucking wechat again
@@ -397,7 +398,21 @@
       loadMain(location.search, function () {
         window.scrollTo(0, savedScrollTop)
       })
+      adaptForTripleBackBehavior()
     })
+    // trying to fix: continuous popstate events may not be fired properly
+    // seems to be a fucking weird feature by some browsers:
+    // back btn being pressed too frequently (triple-click)
+    var popstateDelayTimer
+    function adaptForTripleBackBehavior() {
+      clearTimeout(popstateDelayTimer)
+      popstateDelayTimer = setTimeout(function () {
+        if (location.search !== mainSearch) {
+          console.log('popstate got lost detected location.search=', location.search, 'mainSearch=', mainSearch)
+          loadMain(location.search)
+        }
+      }, 500)
+    }
 
     $('body').delegate('[href]', 'click', function (e) {
       var $a = $(e.target)
