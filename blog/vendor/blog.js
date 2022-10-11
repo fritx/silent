@@ -53,7 +53,7 @@
         if (stack.length) {
           return load(sel, stack, isMain, callback)
         }
-        onNotFound(err)
+        if (isMain) onNotFound(err)
       },
       success: function (data) {
         if (isMain && pageId !== mainPageId) return
@@ -65,10 +65,10 @@
             return console.error('render err', err)
           }
           var $el = $(sel)
-          $el.hide().html(html)
+          $el.addClass('contents-preparing').html(html)
           postProcess($el, url)
 
-          $el.show().attr('data-loaded', true)
+          $el.removeClass('contents-preparing').attr('data-loaded', true)
           if (isMain) onMainRendered()
           if (callback) callback()
         })
@@ -77,7 +77,6 @@
   }
 
   function postProcess($el, url) {
-    window.scrollTo(0, 0)
     var dir = url.replace(new RegExp('[^\\/]*$', 'g'), '')
 
     $el.find('[src]').each(function () {
@@ -373,11 +372,34 @@
     iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
   }
 
+  // body.scrollTop vs documentElement.scrollTop vs window.pageYOffset vs window.scrollY
+  // https://stackoverflow.com/questions/19618545/body-scrolltop-vs-documentelement-scrolltop-vs-window-pageyoffset-vs-window-scro
+  function getScrollTop() {
+    return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+  }
+
   function usePJAX() {
-    window.addEventListener('popstate', function () {
-      loadMain(location.search)
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual'
+    }
+    window.addEventListener('scroll', _.throttle(function () {
+      var newState = _.assign(history.state || {}, { scrollTop: getScrollTop() })
+      // temporally disable Pace
+      // https://github.com/CodeByZach/pace/blob/5ba323c/pace.js#L14-L40
+      Pace.options.restartOnPushState = false
+      history.replaceState(newState, '', document.URL)
+      Pace.options.restartOnPushState = true
+    }, 500))
+
+    window.addEventListener('popstate', function (e) {
+      var savedState = e.state || {}
+      var savedScrollTop = savedState.scrollTop || 0
+      loadMain(location.search, function () {
+        window.scrollTo(0, savedScrollTop)
+      })
     })
-    $('#contents').delegate('[href]', 'click', function (e) {
+
+    $('body').delegate('[href]', 'click', function (e) {
       var $a = $(e.target)
       var url = $a.attr('href') || ''
       var target = $a.attr('target')
@@ -390,6 +412,7 @@
         // Pace.restart: Called automatically whenever pushState or replaceState is called by default.
         Pace.restart()
         loadMain(url, function() {
+          window.scrollTo(0, 0)
           if (!isSameUrl) history.pushState({}, '', url)
         })
       }
