@@ -9,24 +9,22 @@
   var pageExt, pageBase
   var sidebarPage, defaultPage
   var mainPage, mainTitle
-  var mainPageId
+  var mainPageId, mainSearch
 
   function loadSidebar() {
     load('#sidebar-page', sidebarPage)
   }
 
   function loadMain(search, callback) {
+    mainSearch = search
     var seg = search.slice(1).replace(/&.*$/g, '')
-
     // fucking wechat again
     // like /?graduation-thanks=
     // or /?graduation-thanks=/ (SublimeServer)
     seg = seg.replace(/=[\/\\]*$/, '')
-
     // fucking wechat pending
     // like /?from=singlemessage&isappinstalled=0
     if (/=/.test(seg)) seg = null
-
     mainPage = resolve(seg || defaultPage)
     load('#main-page', mainPage, true, callback)
   }
@@ -146,10 +144,6 @@
     document.title = navTitle
 
     // supports mermaid diagrams
-    // https://mermaid-js.github.io/mermaid/#/usage?id=calling-mermaidinit
-    mermaid.parseError = function (err, hash) {
-      console.error('mermaid.parseError', err, hash)
-    }
     mermaid.init()
 
     comments()
@@ -379,6 +373,9 @@
   }
 
   function usePJAX() {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual'
+    }
     window.addEventListener('scroll', _.throttle(function () {
       var newState = _.assign(history.state || {}, { scrollTop: getScrollTop() })
       // temporally disable Pace
@@ -387,15 +384,27 @@
       history.replaceState(newState, '', document.URL)
       Pace.options.restartOnPushState = true
     }, 500))
-
     window.addEventListener('popstate', function (e) {
       var savedState = e.state || {}
       var savedScrollTop = savedState.scrollTop || 0
       loadMain(location.search, function () {
         window.scrollTo(0, savedScrollTop)
       })
+      adaptForTripleBackBehavior()
     })
-
+    // trying to fix: continuous popstate events may not be fired properly
+    // seems to be a fucking weird feature by some browsers:
+    // back btn being pressed too frequently (triple-click)
+    var popstateDelayTimer
+    function adaptForTripleBackBehavior() {
+      clearTimeout(popstateDelayTimer)
+      popstateDelayTimer = setTimeout(function () {
+        if (location.search !== mainSearch) {
+          console.log('popstate got lost detected location.search=', location.search, 'mainSearch=', mainSearch)
+          loadMain(location.search)
+        }
+      }, 500)
+    }
     $('body').delegate('[href]', 'click', function (e) {
       var $a = $(e.target)
       var url = $a.attr('href') || ''
@@ -457,6 +466,13 @@
   function config() {
     // Optional: history.pushState API (PJAX) for silent internal page navigation
     usePJAX()
+
+    // supports mermaid diagrams
+    mermaid.mermaidAPI.initialize({ startOnLoad:false })
+    // https://mermaid-js.github.io/mermaid/#/usage?id=calling-mermaidinit
+    mermaid.parseError = function (err, hash) {
+      console.error('mermaid.parseError', err, hash)
+    }
 
     var renderer = new marked.Renderer()
 
