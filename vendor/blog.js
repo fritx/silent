@@ -11,7 +11,11 @@
   var mainPage, mainTitle
   var mainPageId
 
-  function loadMain(search) {
+  function loadSidebar() {
+    load('#sidebar-page', sidebarPage)
+  }
+
+  function loadMain(search, callback) {
     var seg = search.slice(1).replace(/&.*$/g, '')
 
     // fucking wechat again
@@ -24,7 +28,7 @@
     if (/=/.test(seg)) seg = null
 
     mainPage = resolve(seg || defaultPage)
-    load('#main-page', mainPage, true)
+    load('#main-page', mainPage, true, callback)
   }
 
   function load(sel, stack, isMain, callback) {
@@ -49,7 +53,7 @@
         if (stack.length) {
           return load(sel, stack, isMain, callback)
         }
-        onNotFound(err)
+        if (isMain) onNotFound(err)
       },
       success: function (data) {
         if (isMain && pageId !== mainPageId) return
@@ -61,10 +65,10 @@
             return console.error('render err', err)
           }
           var $el = $(sel)
-          $el.hide().html(html)
+          $el.addClass('contents-preparing').html(html)
           postProcess($el, url)
 
-          $el.show().attr('data-loaded', true)
+          $el.removeClass('contents-preparing').attr('data-loaded', true)
           if (isMain) onMainRendered()
           if (callback) callback()
         })
@@ -73,7 +77,6 @@
   }
 
   function postProcess($el, url) {
-    window.scrollTo(0, 0)
     var dir = url.replace(new RegExp('[^\\/]*$', 'g'), '')
 
     $el.find('[src]').each(function () {
@@ -369,6 +372,50 @@
     iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
   }
 
+  // body.scrollTop vs documentElement.scrollTop vs window.pageYOffset vs window.scrollY
+  // https://stackoverflow.com/questions/19618545/body-scrolltop-vs-documentelement-scrolltop-vs-window-pageyoffset-vs-window-scro
+  function getScrollTop() {
+    return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+  }
+
+  function usePJAX() {
+    window.addEventListener('scroll', _.throttle(function () {
+      var newState = _.assign(history.state || {}, { scrollTop: getScrollTop() })
+      // temporally disable Pace
+      // https://github.com/CodeByZach/pace/blob/5ba323c/pace.js#L14-L40
+      Pace.options.restartOnPushState = false
+      history.replaceState(newState, '', document.URL)
+      Pace.options.restartOnPushState = true
+    }, 500))
+
+    window.addEventListener('popstate', function (e) {
+      var savedState = e.state || {}
+      var savedScrollTop = savedState.scrollTop || 0
+      loadMain(location.search, function () {
+        window.scrollTo(0, savedScrollTop)
+      })
+    })
+
+    $('body').delegate('[href]', 'click', function (e) {
+      var $a = $(e.target)
+      var url = $a.attr('href') || ''
+      var target = $a.attr('target')
+      var isTargetSelf = [undefined, '_self'].includes(target)
+      var isSilentInternal = url === '.' || url.startsWith('?')
+      var isSameUrl = url === location.search || url === '' || url === '.' && !location.search
+      if (isTargetSelf && isSilentInternal) {
+        e.preventDefault()
+        // explicit call Pace in case of no pushState
+        // Pace.restart: Called automatically whenever pushState or replaceState is called by default.
+        Pace.restart()
+        loadMain(url, function() {
+          window.scrollTo(0, 0)
+          if (!isSameUrl) history.pushState({}, '', url)
+        })
+      }
+    })
+  }
+
   config()
   start()
 
@@ -403,32 +450,14 @@
   }
 
   function start() {
-    window.addEventListener('popstate', function () {
-      loadMain(location.search)
-    })
-    $('#contents').delegate('[href]', 'click', function (e) {
-      var $a = $(e.target)
-      var url = $a.attr('href') || ''
-      var target = $a.attr('target')
-      var isTargetSelf = [undefined, '_self'].includes(target)
-      var isSilentInternal = url === '.' || url.startsWith('?')
-      var isSameUrl = url === location.search || url === '' || url === '.' && !location.search
-      if (isTargetSelf && isSilentInternal) {
-        e.preventDefault()
-        if (isSameUrl) {
-          // Pace.restart: Called automatically whenever pushState or replaceState is called by default.
-          Pace.restart() // explicit call here
-        } else {
-          history.pushState({}, '', url)
-        }
-        loadMain(url)
-      }
-    })
-    load('#sidebar-page', sidebarPage)
+    loadSidebar()
     loadMain(location.search)
   }
 
   function config() {
+    // Optional: history.pushState API (PJAX) for silent internal page navigation
+    usePJAX()
+
     var renderer = new marked.Renderer()
 
     // 实现trello的 超链接效果 自动识别github issues

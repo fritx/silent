@@ -190,6 +190,11 @@ code,
   }
 }
 
+/* avoid losing height while swithcing contents */
+.contents-preparing {
+  visibility: hidden;
+}
+
 /* pace minimal */
 /* https://codebyzach.github.io/pace/ */
 .pace {
