@@ -3,7 +3,6 @@
  */
 
 ;(function () {
-
   'use strict'
 
   var pageExt, pageBase
@@ -21,7 +20,7 @@
     // fucking wechat again
     // like /?graduation-thanks=
     // or /?graduation-thanks=/ (SublimeServer)
-    seg = seg.replace(/=[\/\\]*$/, '')
+    seg = seg.replace(/=[/\\]*$/, '')
     // fucking wechat pending
     // like /?from=singlemessage&isappinstalled=0
     if (/=/.test(seg)) seg = null
@@ -75,7 +74,7 @@
   }
 
   function postProcess($el, url) {
-    var dir = url.replace(new RegExp('[^\\/]*$', 'g'), '')
+    var dir = url.replace(/[^\\/]*$/, '')
 
     $el.find('[src]').each(function () {
       var $el = $(this)
@@ -102,7 +101,7 @@
           return old
         }
         var prefixed = resolve(dir + old)
-        var hashRegex = new RegExp('#.*')
+        var hashRegex = /#.*/
         var hash = (function (match) {
           return match && match[0] || ''
         })(old.match(hashRegex))
@@ -117,10 +116,6 @@
               .replace(extRegex, '') +
             hash
           )
-        }
-        if (new RegExp('^\\.\\/').test(old)) {
-          // ./ heading for new tag
-          $el.attr('target', '_blank')
         }
         return prefixed
       })
@@ -159,7 +154,7 @@
   }
 
   function slashes(str) {
-    return str.replace(/([.?*+^$!:\[\]\\(){}|-])/g, '\\$1')
+    return str.replace(/([.?*+^$!:[\]\\(){}|-])/g, '\\$1')
   }
 
   // How to test if a URL string is absolute or relative?
@@ -237,7 +232,7 @@
 
       var parent = document.querySelector('head') || document.documentElement
       var rels = ['icon']
-      rels.forEach(key => {
+      rels.forEach(function (key) {
         var link = document.querySelector('link[rel=' + key + ']')
         if (link) {
           link.setAttribute('href', dataUrl)
@@ -263,7 +258,7 @@
 
   function detectShouldApplyFavicon() {
     var ua = navigator.userAgent
-    var isMobile = /Mobile[\/ ]|Android|iPad/.test(ua) // confidence: high
+    var isMobile = /Mobile[/ ]|Android|iPad/.test(ua) // confidence: high
     var isHuaweiBr = /HuaweiBrowser/.test(ua) // confidence: high
     var isWechat = /MicroMessenger|Wechat|Weixin/.test(ua) // confidence: high
     var isQQ = /M?QQBrowser/.test(ua) // confidence: high
@@ -292,6 +287,7 @@
   // https://disqus.com/admin/install/platforms/universalcode/
   var disqusInitiated = false
   function disqus(shortName, title, id) {
+    /* global DISQUS, disqus_shortname */
     window.disqus_shortname = shortName
     window.disqus_title = title
     window.disqus_identifier = id
@@ -361,9 +357,9 @@
   // dynamically setConfig
   // https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#parent-to-giscus-message-events
   function giscusSendMessage(message) {
-    const iframe = document.querySelector('iframe.giscus-frame');
-    if (!iframe) return;
-    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+    var iframe = document.querySelector('iframe.giscus-frame')
+    if (!iframe) return
+    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
   }
 
   // body.scrollTop vs documentElement.scrollTop vs window.pageYOffset vs window.scrollY
@@ -410,15 +406,15 @@
       var $a = $(e.target)
       var url = $a.attr('href') || ''
       var target = $a.attr('target')
-      var isTargetSelf = [undefined, '_self'].includes(target)
-      var isSilentInternal = url === '.' || url.startsWith('?')
+      var isTargetSelf = [undefined, '_self'].indexOf(target) > -1
+      var isSilentInternal = url === '.' || /^\?/.test(url)
       var isSameUrl = url === location.search || url === '' || url === '.' && !location.search
       if (isTargetSelf && isSilentInternal) {
         e.preventDefault()
         // explicit call Pace in case of no pushState
         // Pace.restart: Called automatically whenever pushState or replaceState is called by default.
         Pace.restart()
-        loadMain(url, function() {
+        loadMain(url, function () {
           window.scrollTo(0, 0)
           if (!isSameUrl) history.pushState({}, '', url)
         })
@@ -430,12 +426,12 @@
   start()
 
   function render(data, callback) {
-    //// Optional template renderer
+    // -- Optional template renderer
     marked(data, callback)
   }
 
   function comments() {
-    //// Optional comment system
+    // -- Optional comment system
     // opt.1 disqus (not recommended in China due to the GFW)
     // var dqsShortName = 'silent-blog'
     // disqus(dqsShortName, mainTitle, mainPage)
@@ -456,7 +452,7 @@
   }
 
   function shares() {
-    //// Optional share system
+    // -- Optional share system
   }
 
   function start() {
@@ -469,7 +465,7 @@
     preferPJAX()
 
     // supports mermaid diagrams
-    mermaid.mermaidAPI.initialize({ startOnLoad:false })
+    mermaid.mermaidAPI.initialize({ startOnLoad: false })
     // https://mermaid-js.github.io/mermaid/#/usage?id=calling-mermaidinit
     mermaid.parseError = function (err, hash) {
       console.error('mermaid.parseError', err, hash)

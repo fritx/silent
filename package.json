@@ -4,13 +4,22 @@
     "packages/**"
   ],
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "deploy": "run-s sync && gh-pages -d blog",
     "sync": "run-p sync:readme:packages sync:readme:blog && run-s sync:blog",
-    "sync:blog": "rm -rf packages/silent/blog && cp -r blog packages/silent/",
+    "sync:blog": "rm -rf packages/silent/blog && cp -r blog packages/silent/ && rm packages/silent/blog/.eslintrc.js",
     "sync:readme:blog": "cat README.md | jayin -ti -to 'x.replaceAll(`https://github.com/fritx/silent/tree/v1`, `../silent/`).replaceAll(`https://blog.fritx.me/?`, `?`).replaceAll(`https://fritx.github.io/silent/?`, `?`).replaceAll(`https://fritx.github.io/silent/p/`, `../../`)' > blog/p/projects/silent_2.0/README.md",
     "sync:readme:packages": "cp README.md packages/silent/ && cp README.md packages/create-silent/"
   },
   "devDependencies": {
+    "eslint": "^8.25.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-es5": "^1.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-prefer-let": "^3.0.1",
+    "eslint-plugin-promise": "^6.1.0",
     "gh-pages": "^4.0.0",
     "jayin": "^0.0.3",
     "npm-run-all": "^4.1.5"

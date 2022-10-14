@@ -1,0 +1,12 @@
+{
+  "search.exclude": {
+    "blog/vendor/*.{min,pack}.*": true,
+  },
+  // https://github.com/antfu/eslint-config#config-vs-code-auto-fix
+  // https://github.com/prettier/prettier-vscode#default-formatter
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}

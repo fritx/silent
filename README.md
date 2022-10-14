@@ -103,6 +103,10 @@ Status: no IE
 - [ ] IE9+ https://caniuse.com/?search=querySelector
 - [ ] IE9+ https://caniuse.com/?search=css3%20selectors
 
+mermaid:
+
+- [ ] no IE https://caniuse.com/?search=arrow%20function
+
 auto title favicon:
 
 - [x] no IE https://caniuse.com/?search=prefers-color-scheme
