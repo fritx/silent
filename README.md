@@ -97,7 +97,7 @@ Status: no IE
 - [ ] no IE https://caniuse.com/?search=str%20includes
 - [ ] no IE https://caniuse.com/?search=builtin%20object%20assign
 - [ ] IE10+ https://caniuse.com/?search=console
-- [ ] IE10+ https://caniuse.com/?search=pushstate
+- [x] IE10+ https://caniuse.com/?search=pushstate
 - [ ] IE9+ https://caniuse.com/?search=object.keys
 - [ ] IE9+ https://caniuse.com/?search=arr%20foreach
 - [ ] IE9+ https://caniuse.com/?search=querySelector

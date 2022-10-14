@@ -18,16 +18,13 @@
   function loadMain(search, callback) {
     mainSearch = search
     var seg = search.slice(1).replace(/&.*$/g, '')
-
     // fucking wechat again
     // like /?graduation-thanks=
     // or /?graduation-thanks=/ (SublimeServer)
     seg = seg.replace(/=[\/\\]*$/, '')
-
     // fucking wechat pending
     // like /?from=singlemessage&isappinstalled=0
     if (/=/.test(seg)) seg = null
-
     mainPage = resolve(seg || defaultPage)
     load('#main-page', mainPage, true, callback)
   }
@@ -147,10 +144,6 @@
     document.title = navTitle
 
     // supports mermaid diagrams
-    // https://mermaid-js.github.io/mermaid/#/usage?id=calling-mermaidinit
-    mermaid.parseError = function (err, hash) {
-      console.error('mermaid.parseError', err, hash)
-    }
     mermaid.init()
 
     comments()
@@ -379,7 +372,8 @@
     return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
   }
 
-  function usePJAX() {
+  function preferPJAX() {
+    if (!('pushState' in history)) return
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual'
     }
@@ -391,7 +385,6 @@
       history.replaceState(newState, '', document.URL)
       Pace.options.restartOnPushState = true
     }, 500))
-
     window.addEventListener('popstate', function (e) {
       var savedState = e.state || {}
       var savedScrollTop = savedState.scrollTop || 0
@@ -413,7 +406,6 @@
         }
       }, 500)
     }
-
     $('body').delegate('[href]', 'click', function (e) {
       var $a = $(e.target)
       var url = $a.attr('href') || ''
@@ -474,7 +466,14 @@
 
   function config() {
     // Optional: history.pushState API (PJAX) for silent internal page navigation
-    usePJAX()
+    preferPJAX()
+
+    // supports mermaid diagrams
+    mermaid.mermaidAPI.initialize({ startOnLoad:false })
+    // https://mermaid-js.github.io/mermaid/#/usage?id=calling-mermaidinit
+    mermaid.parseError = function (err, hash) {
+      console.error('mermaid.parseError', err, hash)
+    }
 
     var renderer = new marked.Renderer()
 
