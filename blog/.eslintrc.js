@@ -12,22 +12,23 @@ module.exports = {
   overrides: [
     {
       files: 'vendor/**/*.js',
-      extends: '../.eslintrc.es5.js',
+      extends: ['fritx/browser', 'fritx/es5-compat']
     },
     {
       files: 'vendor/blog.js',
-      extends: [
-        '../.eslintrc.js',
-        '../.eslintrc.es5.js'
-      ],
+      extends: ['fritx', 'fritx/browser', 'fritx/es5-compat'],
       globals: {
-        mermaid: true,
-        marked: true,
-        hljs: true,
-        Pace: true,
-        _: true,
-        $: true
+        mermaid: 'readonly',
+        marked: 'readonly',
+        hljs: 'readonly',
+        Pace: 'readonly',
+        _: 'readonly',
+        $: 'readonly'
       },
+      rules: {
+        'no-mixed-operators': 0,
+        'no-unused-vars': 0
+      }
     }
   ]
 }

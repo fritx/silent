@@ -15,12 +15,8 @@
   },
   "devDependencies": {
     "eslint": "^8.25.0",
-    "eslint-config-standard": "^17.0.0",
+    "eslint-config-fritx": "^0.0.2",
     "eslint-plugin-es5": "^1.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.3.0",
-    "eslint-plugin-prefer-let": "^3.0.1",
-    "eslint-plugin-promise": "^6.1.0",
     "gh-pages": "^4.0.0",
     "jayin": "^0.0.3",
     "np": "^7.6.2",
