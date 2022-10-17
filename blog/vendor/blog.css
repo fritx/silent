@@ -133,12 +133,11 @@ a {
   color: #444;
   background: #D6DADC;
   border-radius: 3px;
-  padding: 0 4px;
 }
 .known-service-icon {
   width: 14px;
   height: 14px;
-  margin-right: 3px;
+  margin: -2px 3px 0 0;
   vertical-align: middle;
 }
 

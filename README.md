@@ -6,7 +6,7 @@
 
 > Be a silent, static blog
 
-for silent 1.0, check [this](https://github.com/fritx/silent/tree/v1) out
+for silent 1.0, check [this](https://github.com/fritx/silent/tree/1x) out
 
 ## Features
 
@@ -36,8 +36,9 @@ for silent 1.0, check [this](https://github.com/fritx/silent/tree/v1) out
 - [x] comment system: [disqus](https://disqus.com) +[cusdis](https://cusdis.com) +[giscus](https://giscus.app), etc
 - [ ] backend permission api
 
-### Funny & Fancy
+### Funny & Fancy & Performance
 
+- [x] prefer history.pushState api
 - [x] progress bar on top
 - [x] auto favicon (extracted from title)
 - [x] favicon dark mode
@@ -47,10 +48,10 @@ for silent 1.0, check [this](https://github.com/fritx/silent/tree/v1) out
 
 <img width="500" src="https://fritx.github.io/silent/p/projects/silent_2.0/WX20220927-173925.png">
 
-### Security & Stability & Performance
+### Security & Stability
 
 - [x] responsive design
-- [x] prefer history.pushState api
+- [x] prefer es5 and guarded with eslint
 - [ ] fallback on browser compatibility break
 - [ ] IE 6+ support (needs polyfill, etc)
 
@@ -102,6 +103,7 @@ Status: no IE
 - [ ] IE9+ https://caniuse.com/?search=arr%20foreach
 - [ ] IE9+ https://caniuse.com/?search=querySelector
 - [ ] IE9+ https://caniuse.com/?search=css3%20selectors
+- [x] IE8+ https://caniuse.com/?search=scrollintoview
 
 mermaid:
 

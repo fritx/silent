@@ -4,6 +4,10 @@
 
 > We chose [silent](../../projects/silent_2.0/), a static blog template, for example
 
+Note: If you know Git and Github well, [silent usage](?projects/silent_2.0/#usage) can be what you need
+
+Otherwise, if you're a beginner, then here we go:
+
 1. Go to silent homepage: https://github.com/fritx/silent
 
 2. Click `Fork` at the top right corner
