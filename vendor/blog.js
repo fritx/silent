@@ -3,7 +3,6 @@
  */
 
 ;(function () {
-
   'use strict'
 
   var pageExt, pageBase
@@ -15,21 +14,21 @@
     load('#sidebar-page', sidebarPage)
   }
 
-  function loadMain(search, callback) {
+  function loadMain(search, callback, isPopState) {
     mainSearch = search
-    var seg = search.slice(1).replace(/&.*$/g, '')
+    var seg = search.slice(1).replace(/[&#].*$/g, '')
     // fucking wechat again
     // like /?graduation-thanks=
     // or /?graduation-thanks=/ (SublimeServer)
-    seg = seg.replace(/=[\/\\]*$/, '')
+    seg = seg.replace(/=[/\\]*$/, '')
     // fucking wechat pending
     // like /?from=singlemessage&isappinstalled=0
     if (/=/.test(seg)) seg = null
     mainPage = resolve(seg || defaultPage)
-    load('#main-page', mainPage, true, callback)
+    load('#main-page', mainPage, true, callback, isPopState)
   }
 
-  function load(sel, stack, isMain, callback) {
+  function load(sel, stack, isMain, callback, isPopState) {
     if (typeof stack === 'string') {
       if (/\/$/.test(stack)) {
         stack = [stack + 'index', stack + 'README', stack.replace(/\/$/, '')]
@@ -49,7 +48,7 @@
         if (isMain && pageId !== mainPageId) return
 
         if (stack.length) {
-          return load(sel, stack, isMain, callback)
+          return load(sel, stack, isMain, callback, isPopState)
         }
         if (isMain) onNotFound(err)
       },
@@ -66,8 +65,8 @@
           $el.addClass('contents-preparing').html(html)
           postProcess($el, url)
 
-          $el.removeClass('contents-preparing').attr('data-loaded', true)
-          if (isMain) onMainRendered()
+          $el.removeClass('contents-preparing').attr('data-loaded', '')
+          if (isMain) onMainRendered(isPopState)
           if (callback) callback()
         })
       }
@@ -75,7 +74,7 @@
   }
 
   function postProcess($el, url) {
-    var dir = url.replace(new RegExp('[^\\/]*$', 'g'), '')
+    var dir = url.replace(/[^\\/]*$/, '')
 
     $el.find('[src]').each(function () {
       var $el = $(this)
@@ -102,7 +101,7 @@
           return old
         }
         var prefixed = resolve(dir + old)
-        var hashRegex = new RegExp('#.*')
+        var hashRegex = /#.*/
         var hash = (function (match) {
           return match && match[0] || ''
         })(old.match(hashRegex))
@@ -117,10 +116,6 @@
               .replace(extRegex, '') +
             hash
           )
-        }
-        if (new RegExp('^\\.\\/').test(old)) {
-          // ./ heading for new tag
-          $el.attr('target', '_blank')
         }
         return prefixed
       })
@@ -138,7 +133,7 @@
     })
   }
 
-  function onMainRendered() {
+  function onMainRendered(isPopState) {
     mainTitle = $('#main-page').find('h1, h2, h3, h4, h5, h6').first().text().trim()
     var navTitle = autoTitleFavicon(mainTitle)
     document.title = navTitle
@@ -146,20 +141,43 @@
     // supports mermaid diagrams
     mermaid.init()
 
+    if (!isPopState) {
+      setTimeout(scrollToAnchorIfExists, 500)
+    }
     comments()
     shares()
   }
 
   function onNotFound() {
     if ($('#main-page').attr('data-loaded') != null) {
-      // onMainRendered()
+      // noop
     } else if (location.search) {
       location.href = '.'
     }
   }
 
+  function scrollToAnchorIfExists() {
+    // location.hash is either empty or leading with `#`
+    // so the selector here is safe
+    var $anchor = $(location.hash)
+    if ($anchor.length) scrollIntoView($anchor[0])
+  }
+
+  // https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoViewIfNeeded
+  function scrollIntoView(el, scrollParent) {
+    if (el.scrollIntoView) {
+      el.scrollIntoView(true) // alignToTop=true
+    } else {
+      scrollParent = scrollParent || el.parentElement
+      var diff = el.offsetTop - scrollParent.scrollTop
+      if (diff < 0 || diff > scrollParent.offsetHeight - el.offsetHeight) {
+        scrollParent.scrollTop = el.offsetTop
+      }
+    }
+  }
+
   function slashes(str) {
-    return str.replace(/([.?*+^$!:\[\]\\(){}|-])/g, '\\$1')
+    return str.replace(/([.?*+^$!:[\]\\(){}|-])/g, '\\$1')
   }
 
   // How to test if a URL string is absolute or relative?
@@ -213,9 +231,9 @@
   // TODO library extraction: title-favicon & text-favicon & emoji-detect
   // How to detect emoji using javascript
   // https://stackoverflow.com/questions/18862256/how-to-detect-emoji-using-javascript
-  // +modification title-favicon bugfix: recognize emoji `✋🏻` `💁‍♀️` `👨‍👩‍👧‍👦`
+  // +modification title-favicon bugfix: recognize emoji `✋🏻` `💁‍♀️` `👨‍👩‍👧‍👦` `🏳️‍🌈`
   var emojiCellRegex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])+/
-  var emojiRegex = new RegExp(emojiCellRegex.toString().replace(/^\/(.+)\/$/, '(?:[\\u200d]*$1)+[\\ufe0f]*'))
+  var emojiRegex = new RegExp(emojiCellRegex.toString().replace(/^\/(.+)\/$/, '(?:[\\u200d\\ufe0f]*$1)+[\\ufe0f]*'))
   var emojiPrefixRegex = new RegExp(emojiRegex.toString().replace(/^\/(.+)\/$/, '^$1'))
   var anyPrefixRegex = new RegExp(emojiPrefixRegex.toString().replace(/^\/\^(.+)\/$/, '^(?:$1|.)'))
 
@@ -237,7 +255,7 @@
 
       var parent = document.querySelector('head') || document.documentElement
       var rels = ['icon']
-      rels.forEach(key => {
+      rels.forEach(function (key) {
         var link = document.querySelector('link[rel=' + key + ']')
         if (link) {
           link.setAttribute('href', dataUrl)
@@ -263,7 +281,7 @@
 
   function detectShouldApplyFavicon() {
     var ua = navigator.userAgent
-    var isMobile = /Mobile[\/ ]|Android|iPad/.test(ua) // confidence: high
+    var isMobile = /Mobile[/ ]|Android|iPad/.test(ua) // confidence: high
     var isHuaweiBr = /HuaweiBrowser/.test(ua) // confidence: high
     var isWechat = /MicroMessenger|Wechat|Weixin/.test(ua) // confidence: high
     var isQQ = /M?QQBrowser/.test(ua) // confidence: high
@@ -292,6 +310,7 @@
   // https://disqus.com/admin/install/platforms/universalcode/
   var disqusInitiated = false
   function disqus(shortName, title, id) {
+    /* global DISQUS, disqus_shortname */
     window.disqus_shortname = shortName
     window.disqus_title = title
     window.disqus_identifier = id
@@ -328,7 +347,7 @@
     }).appendTo('#comment-system')
     $('<script>').attr({
       src: 'https://cusdis.com/js/cusdis.umd.js',
-      async: true
+      async: ''
     }).appendTo('head')
   }
   // opt.3 giscus
@@ -350,7 +369,7 @@
       'data-input-position': 'bottom',
       'data-theme': 'light', // silent doesn't support darkmode now
       crossorigin: 'anonymous',
-      async: true
+      async: ''
     }
     Object.keys(attrs).forEach(function (k) { dest[k] = attrs[k] })
     // notice: $('<script>') not working here
@@ -361,9 +380,9 @@
   // dynamically setConfig
   // https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#parent-to-giscus-message-events
   function giscusSendMessage(message) {
-    const iframe = document.querySelector('iframe.giscus-frame');
-    if (!iframe) return;
-    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+    var iframe = document.querySelector('iframe.giscus-frame')
+    if (!iframe) return
+    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app')
   }
 
   // body.scrollTop vs documentElement.scrollTop vs window.pageYOffset vs window.scrollY
@@ -372,7 +391,8 @@
     return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
   }
 
-  function usePJAX() {
+  function preferPJAX() {
+    if (!('pushState' in history)) return
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual'
     }
@@ -389,7 +409,7 @@
       var savedScrollTop = savedState.scrollTop || 0
       loadMain(location.search, function () {
         window.scrollTo(0, savedScrollTop)
-      })
+      }, true)
       adaptForTripleBackBehavior()
     })
     // trying to fix: continuous popstate events may not be fired properly
@@ -409,15 +429,15 @@
       var $a = $(e.target)
       var url = $a.attr('href') || ''
       var target = $a.attr('target')
-      var isTargetSelf = [undefined, '_self'].includes(target)
-      var isSilentInternal = url === '.' || url.startsWith('?')
+      var isTargetSelf = [undefined, '_self'].indexOf(target) > -1
+      var isSilentInternal = url === '.' || /^\?/.test(url)
       var isSameUrl = url === location.search || url === '' || url === '.' && !location.search
       if (isTargetSelf && isSilentInternal) {
         e.preventDefault()
         // explicit call Pace in case of no pushState
         // Pace.restart: Called automatically whenever pushState or replaceState is called by default.
         Pace.restart()
-        loadMain(url, function() {
+        loadMain(url, function () {
           window.scrollTo(0, 0)
           if (!isSameUrl) history.pushState({}, '', url)
         })
@@ -429,12 +449,12 @@
   start()
 
   function render(data, callback) {
-    //// Optional template renderer
+    // -- Optional template renderer
     marked(data, callback)
   }
 
   function comments() {
-    //// Optional comment system
+    // -- Optional comment system
     // opt.1 disqus (not recommended in China due to the GFW)
     // var dqsShortName = 'silent-blog'
     // disqus(dqsShortName, mainTitle, mainPage)
@@ -455,7 +475,7 @@
   }
 
   function shares() {
-    //// Optional share system
+    // -- Optional share system
   }
 
   function start() {
@@ -464,11 +484,11 @@
   }
 
   function config() {
-    // Optional: history.pushState API (PJAX) for silent internal page navigation
-    usePJAX()
+    // -- Optional: history.pushState API (PJAX) for silent internal page navigation
+    preferPJAX()
 
     // supports mermaid diagrams
-    mermaid.mermaidAPI.initialize({ startOnLoad:false })
+    mermaid.mermaidAPI.initialize({ startOnLoad: false })
     // https://mermaid-js.github.io/mermaid/#/usage?id=calling-mermaidinit
     mermaid.parseError = function (err, hash) {
       console.error('mermaid.parseError', err, hash)
