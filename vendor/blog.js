@@ -300,7 +300,8 @@
       var prefix = matched[0]
       var success = setFavicon(prefix)
       if (success && emojiPrefixRegex.test(mainTitle)) {
-        navTitle = mainTitle.replace(regex, '').trim() // replace only if emoji
+        // navTitle = mainTitle.replace(regex, '').trim() // replace only if emoji
+        navTitle = mainTitle.replace(prefix, '').trim() // replace only if emoji
       }
     }
     return navTitle
