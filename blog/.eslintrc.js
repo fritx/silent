@@ -12,11 +12,11 @@ module.exports = {
   overrides: [
     {
       files: 'vendor/**/*.js',
-      extends: ['fritx/browser', 'fritx/es5-compat']
+      extends: ['plugin:es/restrict-to-es5']
     },
     {
       files: 'vendor/blog.js',
-      extends: ['fritx', 'fritx/browser', 'fritx/es5-compat'],
+      extends: ['fritx/browser', 'fritx/es5-loose'],
       globals: {
         mermaid: 'readonly',
         marked: 'readonly',

@@ -14,6 +14,9 @@
   "repository": "git@github.com:fritx/silent.git",
   "license": "MIT",
   "bin": "cli.js",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "dependencies": {
     "silent": "^0.2.0"
   }

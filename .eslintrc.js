@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['fritx', 'fritx/node', 'fritx/es2017-compat'],
+  extends: ['fritx/node', 'fritx/es2017'],
   ignorePatterns: [
     'packages/silent/blog/**'
   ]

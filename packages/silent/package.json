@@ -18,6 +18,9 @@
   "scripts": {
     "test": "test -d blog"
   },
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "dependencies": {
     "prompts": "^2.4.2",
     "shelljs": "^0.8.5"
