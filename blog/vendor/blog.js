@@ -430,6 +430,7 @@
       var $a = $(e.target)
       var url = $a.attr('href') || ''
       var target = $a.attr('target')
+      if (e.metaKey || e.ctrlKey) target = '_blank'
       var isTargetSelf = [undefined, '_self'].indexOf(target) > -1
       var isSilentInternal = url === '.' || /^\?/.test(url)
       var isSameUrl = url === location.search || url === '' || url === '.' && !location.search
