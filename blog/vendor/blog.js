@@ -144,7 +144,8 @@
     if (!isPopState) {
       setTimeout(scrollToAnchorIfExists, 500)
     }
-    comments()
+    var comments = window.silentComments
+    if (comments) comments()
     shares()
   }
 
@@ -310,7 +311,7 @@
   // opt.1 disqus
   // https://disqus.com/admin/install/platforms/universalcode/
   var disqusInitiated = false
-  function disqus(shortName, title, id) {
+  window.silentDisqus = function (shortName, title, id) {
     /* global DISQUS, disqus_shortname */
     window.disqus_shortname = shortName
     window.disqus_title = title
@@ -336,7 +337,7 @@
   // opt.2 cusdis
   // https://cusdis.com/doc#/advanced/sdk?id=js-sdk
   // TODO: adapt for SPA
-  function cusdis(host, appId, title, id) {
+  window.silentCusdis = function (host, appId, title, id) {
     $('#comment-system').empty()
     $('<div>').attr({
       id: 'cusdis_thread',
@@ -354,7 +355,7 @@
   // opt.3 giscus
   // https://giscus.app/
   var giscusInitiated = false
-  function giscus(attrs) {
+  window.silentGiscus = function (attrs) {
     if (giscusInitiated) {
       giscusSendMessage({ setConfig: { term: document.title } })
       return
@@ -462,27 +463,6 @@
       data = data.replace(/^---([\s\S]*?)---\s+/m, '')
     }
     marked(data, callback)
-  }
-
-  function comments() {
-    // -- Optional comment system
-    // opt.1 disqus (not recommended in China due to the GFW)
-    // var dqsShortName = 'silent-blog'
-    // disqus(dqsShortName, mainTitle, mainPage)
-
-    // opt.2 cusdis
-    // var cdsHost = 'https://cusdis.com'
-    // var cdsAppId = '3ab3a14f-bcb2-4a6f-b984-742a15463f80'
-    // cusdis(cdsHost, cdsAppId, mainTitle, mainPage)
-
-    // opt.3 giscus
-    giscus({
-      'data-repo': 'fritx/silent',
-      'data-repo-id': 'MDEwOlJlcG9zaXRvcnkxOTU3NDAyMQ==',
-      'data-category': 'Announcements',
-      'data-category-id': 'DIC_kwDOASqtBc4CRbFd',
-      'data-lang': 'en'
-    })
   }
 
   function shares() {

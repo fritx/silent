@@ -64,6 +64,26 @@
 <script src="vendor/blog.js"></script>
 <!-- custom -->
 <script>
+  function silentComments() {
+    // -- Optional comment system
+    // opt.1 disqus (not recommended in China due to the GFW)
+    // var dqsShortName = 'silent-blog'
+    // silentDisqus(dqsShortName, mainTitle, mainPage)
+
+    // opt.2 cusdis
+    // var cdsHost = 'https://cusdis.com'
+    // var cdsAppId = '3ab3a14f-bcb2-4a6f-b984-742a15463f80'
+    // silentCusdis(cdsHost, cdsAppId, mainTitle, mainPage)
+
+    // opt.3 giscus
+    silentGiscus({
+      'data-repo': 'fritx/silent',
+      'data-repo-id': 'MDEwOlJlcG9zaXRvcnkxOTU3NDAyMQ==',
+      'data-category': 'Announcements',
+      'data-category-id': 'DIC_kwDOASqtBc4CRbFd',
+      'data-lang': 'en'
+    })
+  }
   marked.setOptions({ breaks: false })
   silentLoad('posts')
 </script>
