@@ -450,6 +450,11 @@
   config()
   start()
 
+  window.silentLoad = function (_defaultPage) {
+    defaultPage = _defaultPage || 'index'
+    loadMain(location.search)
+  }
+
   function render(data, callback) {
     // -- Optional template renderer
     // handle/ignore markdown/markmap comments
@@ -486,7 +491,6 @@
 
   function start() {
     loadSidebar()
-    loadMain(location.search)
   }
 
   function config() {
@@ -575,6 +579,5 @@
     pageBase = 'p/'
     // add a trailing slash if it is an index.md of a directory
     sidebarPage = 'sidebar'
-    defaultPage = 'posts'
   }
 })()

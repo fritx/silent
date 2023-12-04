@@ -24,6 +24,8 @@
   <!-- import vendor styles -->
   <link rel="stylesheet" href="vendor/zenburn.css">
   <link rel="stylesheet" href="vendor/blog.css">
+  <!-- custom -->
+  <style>.sidebar { background-color: #336699 }</style>
 </head>
 <body>
 
@@ -60,6 +62,11 @@
 <script src="vendor/mermaid-9.1.6.min.js"></script>
 <script src="vendor/highlight.pack.js"></script>
 <script src="vendor/blog.js"></script>
+<!-- custom -->
+<script>
+  marked.setOptions({ breaks: false })
+  silentLoad('posts')
+</script>
 
 <!-- analytics -->
 <!-- opt.1 google -->
