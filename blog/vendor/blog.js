@@ -452,6 +452,10 @@
 
   function render(data, callback) {
     // -- Optional template renderer
+    // handle/ignore markdown/markmap comments
+    if (/^---/.test(data)) {
+      data = data.replace(/^---([\s\S]*?)---\s+/m, '')
+    }
     marked(data, callback)
   }
 
