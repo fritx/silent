@@ -6,7 +6,7 @@
   'use strict'
 
   var pageExt, pageBase
-  var sidebarPage, defaultPage
+  var sidebarPage
   var mainPage, mainTitle
   var mainPageId, mainSearch
 
@@ -24,7 +24,7 @@
     // fucking wechat pending
     // like /?from=singlemessage&isappinstalled=0
     if (/=/.test(seg)) seg = null
-    mainPage = resolve(seg || defaultPage)
+    mainPage = resolve(seg || window.silentDefaultPage)
     load('#main-page', mainPage, true, callback, isPopState)
   }
 
@@ -144,7 +144,7 @@
     if (!isPopState) {
       setTimeout(scrollToAnchorIfExists, 500)
     }
-    comments()
+    window.silentComments()
     shares()
   }
 
@@ -310,7 +310,7 @@
   // opt.1 disqus
   // https://disqus.com/admin/install/platforms/universalcode/
   var disqusInitiated = false
-  function disqus(shortName, title, id) {
+  window.silentDisqus = function (shortName, title, id) {
     /* global DISQUS, disqus_shortname */
     window.disqus_shortname = shortName
     window.disqus_title = title
@@ -336,7 +336,7 @@
   // opt.2 cusdis
   // https://cusdis.com/doc#/advanced/sdk?id=js-sdk
   // TODO: adapt for SPA
-  function cusdis(host, appId, title, id) {
+  window.silentCusdis = function (host, appId, title, id) {
     $('#comment-system').empty()
     $('<div>').attr({
       id: 'cusdis_thread',
@@ -354,7 +354,7 @@
   // opt.3 giscus
   // https://giscus.app/
   var giscusInitiated = false
-  function giscus(attrs) {
+  window.silentGiscus = function (attrs) {
     if (giscusInitiated) {
       giscusSendMessage({ setConfig: { term: document.title } })
       return
@@ -430,6 +430,7 @@
       var $a = $(e.target)
       var url = $a.attr('href') || ''
       var target = $a.attr('target')
+      if (e.metaKey || e.ctrlKey) target = '_blank'
       var isTargetSelf = [undefined, '_self'].indexOf(target) > -1
       var isSilentInternal = url === '.' || /^\?/.test(url)
       var isSameUrl = url === location.search || url === '' || url === '.' && !location.search
@@ -447,41 +448,20 @@
   }
 
   config()
-  start()
+
+  window.silentLoad = function (defaultPage) {
+    window.silentDefaultPage = defaultPage
+    loadSidebar()
+    loadMain(location.search)
+  }
 
   function render(data, callback) {
     // -- Optional template renderer
     marked(data, callback)
   }
 
-  function comments() {
-    // -- Optional comment system
-    // opt.1 disqus (not recommended in China due to the GFW)
-    // var dqsShortName = 'silent-blog'
-    // disqus(dqsShortName, mainTitle, mainPage)
-
-    // opt.2 cusdis
-    // var cdsHost = 'https://cusdis.com'
-    // var cdsAppId = '3ab3a14f-bcb2-4a6f-b984-742a15463f80'
-    // cusdis(cdsHost, cdsAppId, mainTitle, mainPage)
-
-    // opt.3 giscus
-    giscus({
-      'data-repo': 'fritx/silent',
-      'data-repo-id': 'MDEwOlJlcG9zaXRvcnkxOTU3NDAyMQ==',
-      'data-category': 'Announcements',
-      'data-category-id': 'DIC_kwDOASqtBc4CRbFd',
-      'data-lang': 'en'
-    })
-  }
-
   function shares() {
     // -- Optional share system
-  }
-
-  function start() {
-    loadSidebar()
-    loadMain(location.search)
   }
 
   function config() {
@@ -570,6 +550,5 @@
     pageBase = 'p/'
     // add a trailing slash if it is an index.md of a directory
     sidebarPage = 'sidebar'
-    defaultPage = 'posts'
   }
 })()
