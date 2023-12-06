@@ -6,7 +6,7 @@
   'use strict'
 
   var pageExt, pageBase
-  var sidebarPage
+  var sidebarPage, defaultPage
   var mainPage, mainTitle
   var mainPageId, mainSearch
 
@@ -24,7 +24,7 @@
     // fucking wechat pending
     // like /?from=singlemessage&isappinstalled=0
     if (/=/.test(seg)) seg = null
-    mainPage = resolve(seg || window.silentDefaultPage)
+    mainPage = resolve(seg || defaultPage)
     load('#main-page', mainPage, true, callback, isPopState)
   }
 
@@ -144,7 +144,8 @@
     if (!isPopState) {
       setTimeout(scrollToAnchorIfExists, 500)
     }
-    window.silentComments()
+    var comments = window.silentComments
+    if (comments) comments()
     shares()
   }
 
@@ -448,20 +449,29 @@
   }
 
   config()
+  start()
 
-  window.silentLoad = function (defaultPage) {
-    window.silentDefaultPage = defaultPage
+  window.silentLoad = function (_defaultPage) {
+    defaultPage = _defaultPage || 'index'
     loadSidebar()
     loadMain(location.search)
   }
 
   function render(data, callback) {
     // -- Optional template renderer
+    // handle/ignore markdown/markmap comments
+    if (/^---/.test(data)) {
+      data = data.replace(/^---([\s\S]*?)---\s+/m, '')
+    }
     marked(data, callback)
   }
 
   function shares() {
     // -- Optional share system
+  }
+
+  function start() {
+    loadSidebar()
   }
 
   function config() {
