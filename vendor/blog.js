@@ -453,7 +453,6 @@
 
   window.silentLoad = function (_defaultPage) {
     defaultPage = _defaultPage || 'index'
-    loadSidebar()
     loadMain(location.search)
   }
 
