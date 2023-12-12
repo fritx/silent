@@ -89,6 +89,10 @@ a {
 .sidebar-inner {
   padding: 2% 5%;
 }
+.sidebar li {
+  display: inline-block;
+  margin-right: .3em;
+}
 .sidebar a {
   color: #fff;
 }
@@ -180,6 +184,10 @@ code,
     bottom: 0;
     left: 0;
     width: 25%;
+  }
+  .sidebar li {
+    display: list-item;
+    margin-right: 0;
   }
   .sidebar-inner {
     padding: 15%;
