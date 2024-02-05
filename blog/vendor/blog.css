@@ -142,6 +142,8 @@ a {
   color: #444;
   background: #D6DADC;
   border-radius: 3px;
+  /* avoid linebreak between icon and text */
+  word-break: break-all;
 }
 .known-service-icon {
   width: 14px;
