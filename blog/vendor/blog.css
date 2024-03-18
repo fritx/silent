@@ -121,6 +121,8 @@ a {
   -ms-box-shadow: 0 0 6px rgba(0,0,0, .6);
   -o-box-shadow: 0 0 6px rgba(0,0,0, .6);
   box-shadow: 0 0 6px rgba(0,0,0, .6);*/
+  /* fix transparent image background in darkmode */
+  background-color: rgba(255, 255, 255, .2);
 }
 
 .img-holder {
