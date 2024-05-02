@@ -9,6 +9,7 @@
   var sidebarPage, defaultPage
   var mainPage, mainTitle
   var mainPageId, mainSearch
+  var useCache = true
 
   function loadSidebar() {
     load('#sidebar-page', sidebarPage)
@@ -44,6 +45,7 @@
     var url = pageBase + pageId + pageExt
     $.ajax({
       url: url,
+      cache: useCache,
       error: function (err) {
         if (isMain && pageId !== mainPageId) return
 
@@ -474,6 +476,10 @@
   }
 
   function config() {
+    // jQuery.ajax uses `?_=(timestamp)` when `cache` is false
+    // for silentpress editor-preview
+    if (/[?&][t_]=/.test(location.search)) useCache = false
+
     // -- Optional: history.pushState API (PJAX) for silent internal page navigation
     preferPJAX()
 
