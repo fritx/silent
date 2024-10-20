@@ -17,7 +17,8 @@
 
   function loadMain(search, callback, isPopState) {
     mainSearch = search
-    var seg = search.slice(1).replace(/[&#].*$/g, '')
+    // fix: /?2022%2F09%2Fblog-setup-via-github-fork
+    var seg = decodeURIComponent(search).slice(1).replace(/[&#].*$/g, '')
     // fucking wechat again
     // like /?graduation-thanks=
     // or /?graduation-thanks=/ (SublimeServer)
