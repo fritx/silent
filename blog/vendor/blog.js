@@ -94,6 +94,8 @@
     $el.find('[href]').each(function () {
       var $el = $(this)
       $el.attr('href', function (x, old) {
+        var isJs = /^javascript:/i.test(old)
+        if (isJs) return old
         if (isAbsolute(old)) {
           $el.attr('target', '_blank')
           return old
@@ -437,7 +439,8 @@
       var isTargetSelf = [undefined, '_self'].indexOf(target) > -1
       var isSilentInternal = url === '.' || /^\?/.test(url)
       var isSameUrl = url === location.search || url === '' || url === '.' && !location.search
-      if (isTargetSelf && isSilentInternal) {
+      var isJs = /^javascript:/i.test(url)
+      if (!isJs && isTargetSelf && isSilentInternal) {
         e.preventDefault()
         // explicit call Pace in case of no pushState
         // Pace.restart: Called automatically whenever pushState or replaceState is called by default.
