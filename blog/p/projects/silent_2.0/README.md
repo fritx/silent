@@ -8,6 +8,14 @@
 
 for silent 1.0, check [this](../silent/) out
 
+## 🎉🎉 silent's 10th Anniversary
+
+SilentPress: a CMS alternative to VitePress and WordPress. 200+LOC written in Go.<br>
+https://github.com/fritx/silentpress
+
+-- for the 10th-anniversary of *silent*. silent and its simplicity was a once a culture, a spirit, and a memory of ____<br>
+#silent #10YearsAnniversary #simplicity #opensource
+
 ## Features
 
 ### Old-school & Clean
@@ -99,6 +107,7 @@ Status: no IE
 - [ ] no IE https://caniuse.com/?search=builtin%20object%20assign
 - [ ] IE10+ https://caniuse.com/?search=console
 - [x] IE10+ https://caniuse.com/?search=pushstate
+- [ ] IE9+ https://caniuse.com/?search=date.now
 - [ ] IE9+ https://caniuse.com/?search=object.keys
 - [ ] IE9+ https://caniuse.com/?search=arr%20foreach
 - [ ] IE9+ https://caniuse.com/?search=querySelector
@@ -107,6 +116,7 @@ Status: no IE
 
 mermaid:
 
+- [x] no IE / Safari 15.4+ https://caniuse.com/?search=structuredClone
 - [ ] no IE https://caniuse.com/?search=arrow%20function
 
 auto title favicon:
@@ -139,6 +149,8 @@ if using giscus:
 
 > Rather than a framework or library, silent is more like a spirit - a culture. (says Huang)
 
+- [The 10th Anniversary of *silent*...](https://x.com/fz_ux55200/status/1786274684541321639)
+- [SilentPress: CMS Alternative to VitePress and WordPress. 200LOC in Go](https://news.ycombinator.com/item?id=40234012)
 - [Silent One Year Old](?2015/05/silent-one-year-old)
 - ~~[Silent T-Shirt](http://udz.com/silent)~~
 
