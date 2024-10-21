@@ -89,6 +89,9 @@ a {
 .sidebar-inner {
   padding: 2% 5%;
 }
+.sidebar ul, .sidebar ol {
+  padding-left: 0;
+}
 .sidebar li {
   display: inline-block;
   margin-right: .3em;
@@ -118,6 +121,8 @@ a {
   -ms-box-shadow: 0 0 6px rgba(0,0,0, .6);
   -o-box-shadow: 0 0 6px rgba(0,0,0, .6);
   box-shadow: 0 0 6px rgba(0,0,0, .6);*/
+  /* fix transparent image background in darkmode */
+  background-color: rgba(255, 255, 255, .2);
 }
 
 .img-holder {
@@ -139,6 +144,8 @@ a {
   color: #444;
   background: #D6DADC;
   border-radius: 3px;
+  /* avoid linebreak between icon and text */
+  word-break: break-all;
 }
 .known-service-icon {
   width: 14px;
@@ -184,6 +191,9 @@ code,
     bottom: 0;
     left: 0;
     width: 25%;
+  }
+  .sidebar ul, .sidebar ol {
+    padding-left: 30px;
   }
   .sidebar li {
     display: list-item;

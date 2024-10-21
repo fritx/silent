@@ -9,6 +9,7 @@
   var sidebarPage, defaultPage
   var mainPage, mainTitle
   var mainPageId, mainSearch
+  var useCache = true
 
   function loadSidebar() {
     load('#sidebar-page', sidebarPage)
@@ -16,7 +17,8 @@
 
   function loadMain(search, callback, isPopState) {
     mainSearch = search
-    var seg = search.slice(1).replace(/[&#].*$/g, '')
+    // fix: /?2022%2F09%2Fblog-setup-via-github-fork
+    var seg = decodeURIComponent(search).slice(1).replace(/[&#].*$/g, '')
     // fucking wechat again
     // like /?graduation-thanks=
     // or /?graduation-thanks=/ (SublimeServer)
@@ -44,6 +46,7 @@
     var url = pageBase + pageId + pageExt
     $.ajax({
       url: url,
+      cache: useCache,
       error: function (err) {
         if (isMain && pageId !== mainPageId) return
 
@@ -92,6 +95,8 @@
     $el.find('[href]').each(function () {
       var $el = $(this)
       $el.attr('href', function (x, old) {
+        var isJs = /^javascript:/i.test(old)
+        if (isJs) return old
         if (isAbsolute(old)) {
           $el.attr('target', '_blank')
           return old
@@ -435,7 +440,8 @@
       var isTargetSelf = [undefined, '_self'].indexOf(target) > -1
       var isSilentInternal = url === '.' || /^\?/.test(url)
       var isSameUrl = url === location.search || url === '' || url === '.' && !location.search
-      if (isTargetSelf && isSilentInternal) {
+      var isJs = /^javascript:/i.test(url)
+      if (!isJs && isTargetSelf && isSilentInternal) {
         e.preventDefault()
         // explicit call Pace in case of no pushState
         // Pace.restart: Called automatically whenever pushState or replaceState is called by default.
@@ -474,6 +480,10 @@
   }
 
   function config() {
+    // jQuery.ajax uses `?_=(timestamp)` when `cache` is false
+    // for silentpress editor-preview
+    if (/[?&][t_]=/.test(location.search)) useCache = false
+
     // -- Optional: history.pushState API (PJAX) for silent internal page navigation
     preferPJAX()
 
