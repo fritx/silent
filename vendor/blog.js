@@ -138,6 +138,8 @@
     })
   }
 
+  var isMermaidLoaded = false
+
   function onMainRendered(isPopState) {
     mainTitle = $('#main-page').find('h1, h2, h3, h4, h5, h6').first().text().trim()
     var navTitle = autoTitleFavicon(mainTitle)
@@ -523,13 +525,6 @@
 
     // -- Optional: history.pushState API (PJAX) for silent internal page navigation
     preferPJAX()
-
-    // supports mermaid diagrams
-    mermaid.mermaidAPI.initialize({ startOnLoad: false })
-    // https://mermaid-js.github.io/mermaid/#/usage?id=calling-mermaidinit
-    mermaid.parseError = function (err, hash) {
-      console.error('mermaid.parseError', err, hash)
-    }
 
     var renderer = new marked.Renderer()
 
