@@ -138,13 +138,36 @@
     })
   }
 
+  var isMermaidLoaded = false
+
   function onMainRendered(isPopState) {
     mainTitle = $('#main-page').find('h1, h2, h3, h4, h5, h6').first().text().trim()
     var navTitle = autoTitleFavicon(mainTitle)
     document.title = navTitle
 
     // supports mermaid diagrams
-    mermaid.init()
+    if ($('#main-page').find('.mermaid').length) {
+      if (isMermaidLoaded) {
+        mermaid.init()
+      } else {
+        // var src = 'vendor/mermaid-11.3.0.min.js' // 2.55 MB
+        // var src = 'vendor/mermaid-11.2.1.min.js' // 2.51 MB
+        // var src = 'vendor/mermaid-11.0.2.min.js' // 2.33 MB
+        // var src = 'vendor/mermaid-10.9.3.min.js' // 3.34 MB
+        // 以上 iPX 不ok - Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Mobile/15E148 Safari/604.1
+        // var src = 'vendor/mermaid-9.4.3.min.js' // 2.78 MB
+        var src = 'vendor/mermaid-9.1.7.min.js' // 1.08 MB
+        loadScript(src, function() {
+          isMermaidLoaded = true
+          mermaid.mermaidAPI.initialize({ startOnLoad: false })
+          // https://mermaid-js.github.io/mermaid/#/usage?id=calling-mermaidinit
+          mermaid.parseError = function (err, hash) {
+            console.error('mermaid.parseError', err, hash)
+          }
+          mermaid.init()
+        })
+      }
+    }
 
     if (!isPopState) {
       setTimeout(scrollToAnchorIfExists, 500)
@@ -152,6 +175,22 @@
     var comments = window.silentComments
     if (comments) comments()
     shares()
+  }
+  function loadScript(src, onload) {
+    var s = document.createElement('script')
+    s.src = src
+    s.onload = onload
+    s.onerror = function(event) {
+      console.error('loadScript s.onerror', event, src)
+      _queueToReport('loadScript_error', {
+        title: event.message,
+        error: event.error,
+        filename: event.filename,
+        lineno: event.lineno,
+        colno: event.colno
+      })
+    }
+    document.body.appendChild(s)
   }
 
   function onNotFound() {
@@ -486,13 +525,6 @@
 
     // -- Optional: history.pushState API (PJAX) for silent internal page navigation
     preferPJAX()
-
-    // supports mermaid diagrams
-    mermaid.mermaidAPI.initialize({ startOnLoad: false })
-    // https://mermaid-js.github.io/mermaid/#/usage?id=calling-mermaidinit
-    mermaid.parseError = function (err, hash) {
-      console.error('mermaid.parseError', err, hash)
-    }
 
     var renderer = new marked.Renderer()
 
