@@ -243,3 +243,17 @@ code,
 .mermaid[data-processed="true"] {
   visibility: visible;
 }
+
+/* revert darkreader */
+@media (prefers-color-scheme: dark) {
+  .known-service-icon {
+    background-color: transparent !important;
+  }
+}
+
+/* ** with latest features ** */
+/* todo list */
+li:has(>input[type=checkbox]) {
+  list-style: none;
+  margin-left: -26px;
+}

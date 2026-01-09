@@ -92,6 +92,10 @@
       })
     })
 
+    var baseRegex = new RegExp('^' + slashes(pageBase))
+    var extRegex = new RegExp(slashes(pageExt) + '$')
+    var indexRegex = new RegExp(slashes('/' + defaultPage + pageExt) + '$')
+
     $el.find('[href]').each(function () {
       var $el = $(this)
       $el.attr('href', function (x, old) {
@@ -112,12 +116,12 @@
         })(old.match(hashRegex))
         var dehashed = prefixed.replace(hashRegex, '')
 
-        var extRegex = new RegExp(slashes(pageExt) + '$')
         if (extRegex.test(dehashed) || /\/$/.test(dehashed)) {
           return (
             '?' +
             dehashed
-              .replace(new RegExp('^' + slashes(pageBase)), '')
+              .replace(baseRegex, '')
+              .replace(indexRegex, '')
               .replace(extRegex, '') +
             hash
           )
@@ -221,6 +225,7 @@
     }
   }
 
+  // slashes: escape regexp string
   function slashes(str) {
     return str.replace(/([.?*+^$!:[\]\\(){}|-])/g, '\\$1')
   }
@@ -295,7 +300,7 @@
       ctx.font = isEmoji ? '28px serif' : '32px serif'
       ctx.fillStyle = isDarkMode ? 'orange' : '#336699' // for text color
       ctx.textAlign = 'center'
-      ctx.fillText(s, 16, 24)
+      ctx.fillText(s, 16, 27)
       var dataUrl = canvas.toDataURL()
 
       var parent = document.querySelector('head') || document.documentElement
